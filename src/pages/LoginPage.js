@@ -1,8 +1,9 @@
-import React from 'react'
-import { Trans } from '@lingui/macro'
+import "../assets/css/login.css";
+import React from 'react';
+import { Trans } from '@lingui/macro';
 // import { t } from "@lingui/macro"
-import useNotAuth from '../hooks/useNotAuth'
-import LoginForm from '../components/LoginForm'
+import useNotAuth from '../hooks/useNotAuth';
+import LoginForm from '../components/LoginForm';
 function LoginPage() {
   useNotAuth()
   return (

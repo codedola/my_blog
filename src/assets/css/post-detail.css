@@ -15,7 +15,12 @@
 .post-detail__info {
   margin: 0;
   padding: 0;
-  list-style: none; }
+  list-style: none; 
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
   .post-detail__info .item {
     display: inline-block;
     vertical-align: middle; }
@@ -28,6 +33,13 @@
       font-size: 0;
       display: inline-block;
       position: relative; }
+      .post-detail__info .item.views, .item.comments {
+        display: flex;
+        align-items: center;
+      } 
+      .post-detail__info .item.views span.count, .item.comments span.count{
+        margin-right: 2px;
+      }
       .post-detail__info .item.views .icons::before {
         font-size: 1.3rem;
         display: inline-block; }

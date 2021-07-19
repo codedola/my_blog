@@ -1,13 +1,15 @@
-// import PostCommentsForm from './PostCommentsForm'
+
 import { useSelector } from 'react-redux'
-import Loading from '../shared/Loading'
 import PostCommentSection from './PostCommentSection'
 import { useCommentsPaging } from '../../hooks/useCommentsPaging'
 import { genKeyChildPaging, genObjPaging } from '../../store/comments/reducer'
 import { useState } from 'react'
-import PostCommentsForm from './PostCommentsForm'
+import PostCommentsForm from './PostCommentsForm';
+import { Button } from 'antd';
+import { LoadingOutlined , CommentOutlined } from "@ant-design/icons"
 
 function PostCommentsItem({ parentId, comment }) {
+  console.log(comment)
   const postDetail = useSelector(state => state.Posts.postDetail)
   const [isShowForm, setIsShowForm] = useState(false)
 
@@ -55,19 +57,22 @@ function PostCommentsItem({ parentId, comment }) {
       {
         comment_reply_count !== 0 && remainingCmtChild !== 0 ? (
           <div className="comments__hidden">
-            <a href="/" onClick={handleToggleFormReply}>
-              Trả lời
-            </a>
-            <a href="/" onClick={handleLoadMoreCmtChild} >
-              <i className="icons ion-ios-undo"></i> Xem thêm { remainingCmtChild } câu trả lời { loadingCmtChild && <Loading width="1em" /> }
-            </a>
+            <Button type="text" size="small" className="reply" onClick={handleToggleFormReply}>
+              <CommentOutlined /> Trả lời
+            </Button>
+
+            <Button  type="text" size="small" onClick={handleLoadMoreCmtChild} >
+              <i className="icons ion-ios-undo"></i>
+              Xem thêm {remainingCmtChild} câu trả lời {loadingCmtChild
+                && <LoadingOutlined style={{verticalAlign:"baseline", marginLeft: 4}} />}
+            </Button>
           </div>
         ) : (
           isCmtParent && (
             <div className="comments__hidden">
-              <a href="/" onClick={handleToggleFormReply}>
-                Trả lời
-              </a>
+                <Button type="text" size="small" className="reply" onClick={handleToggleFormReply}>
+                  <CommentOutlined /> Trả lời
+                </Button>
             </div>
           )
         )
@@ -79,7 +84,9 @@ function PostCommentsItem({ parentId, comment }) {
         isCmtParent && comment_reply_count !== 0 && (
           <ul className="comments">
             {
-              commentsChild.map(cmtChild => <PostCommentsItem comment={cmtChild} key={cmtChild.id} />)
+              commentsChild.map(
+                cmtChild => <PostCommentsItem comment={cmtChild} key={cmtChild.id} />
+              )
             }
           </ul>
         )
@@ -91,7 +98,7 @@ function PostCommentsItem({ parentId, comment }) {
           <PostCommentsForm 
             postId={postId} 
             parentId={comment.id}
-            placeholder={`Phản hồi bình luận của @congluc1902`}
+            placeholder={`Phản hồi bình luận của @${comment.author_data.nickname}`}
           />
         )
       }

@@ -11,6 +11,7 @@ export default function Button({
   className,
   loading,
   loadingPos = 'left',
+  styleBtn={},
   ...restProps 
 }) {
 
@@ -24,7 +25,7 @@ export default function Button({
 
   if (type === 'button') {
     return (
-      <button {...restProps} type={htmlType} className={classes} >
+      <button {...restProps} type={htmlType} className={classes} style={styleBtn} >
         { loading && loadingPos === 'left' && <Loading /> }
         { children }
         { loading && loadingPos === 'right' && <Loading /> }

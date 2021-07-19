@@ -1,10 +1,10 @@
-// import './post-detail.css';
+import "../assets/css/post-detail.css";
 import { useEffect, useState } from 'react';
 import Container from '../components/shared/Container'
 import PageNotFound from '../components/PageNotFound'
 import PostDetailHead from "../components/PostDetail/PostDetailHead"
 import PostDetailContent from "../components/PostDetail/PostDetailContent"
-// import PostDetailSidebar from "../components/PostDetail/PostDetailSidebar"
+import PostDetailSidebar from "../components/PostDetail/PostDetailSidebar"
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { actResetDataComment } from '../store/comments/actions';
@@ -54,6 +54,8 @@ function PostDetail() {
           <Container>
             <div className="post-detail__wrapper">
               <PostDetailContent />
+
+              <PostDetailSidebar/>
             </div>
           </Container>
         </div>

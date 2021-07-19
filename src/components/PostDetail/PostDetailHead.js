@@ -1,7 +1,8 @@
 import { useSelector } from "react-redux";
-import dayjs from 'dayjs';
-
-
+import { EyeOutlined, CommentOutlined } from "@ant-design/icons";
+import { createDateTime } from "../../helpers";
+import { Link } from "react-router-dom";
+import { PATHS } from "../../constants"
 function PostDetailHead() {
   const post = useSelector(state => state.Posts.postDetail);
 
@@ -13,8 +14,7 @@ function PostDetailHead() {
   const postAuthorName = post.author_data.nickname;
   const postCmtCount = post.comment_count;
   const postViewCount = post.view_count;
-  const date = dayjs(new Date(post.date));
-  const dateStr = date.format('DD/MM/YYYY');
+  const { createdDateStr } = createDateTime(post.date)
 
   return (
     <div className="post-detail__head">
@@ -22,14 +22,18 @@ function PostDetailHead() {
         <h1 className="post-detail__title">{postTitle}</h1>
         <ul className="post-detail__info">
           <li className="item author">
-          Bởi <a href="/"><strong>{postAuthorName}</strong></a>
+            Bởi <Link to={PATHS.USER_DETAIL.replace(":user_id", post.author)}>
+              <strong>{postAuthorName}</strong>
+            </Link>
           </li>
-          <li className="item date">{dateStr}</li>
+          <li className="item date">{createdDateStr}</li>
           <li className="item views">
-            {postViewCount} <i className="icons ion-ios-eye" />
+            <span className="count">{postViewCount}</span>
+            <EyeOutlined  />
           </li>
           <li className="item comments">
-            {postCmtCount} <i className="icons ion-ios-chatbubble" />
+            <span className="count">{postCmtCount}</span>
+            <CommentOutlined />
           </li>
         </ul>
       </div>

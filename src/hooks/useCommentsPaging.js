@@ -7,11 +7,13 @@ import Button from "../components/shared/Button"
 export function useCommentsPaging({
   actionAsync = actFetchCommentsAsync,
   selectorFn = state => state.Comments.commentsParentPaging,
-  extraParams = {}
+  extraParams = {},
+  styleBtn = {}
 } = {}) {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-  const commentsPaging = useSelector(selectorFn)
+  const commentsPaging = useSelector(selectorFn);
+  //
   const comments = commentsPaging.list;
   const page = commentsPaging.page;
   const totalPages = commentsPaging.totalPages;
@@ -45,6 +47,7 @@ export function useCommentsPaging({
       <div className="text-center">
         <Button 
           // size="large" 
+          styleBtn = {styleBtn}
           variant="primary"
           loading={loading}
           disabled={loading}

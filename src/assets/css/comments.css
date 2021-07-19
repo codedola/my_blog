@@ -10,7 +10,7 @@
     margin-left: 55px;
     margin-top: 1rem; }
     .comments .comments .comments__section--avatar {
-      margin-right: 10px; }
+      margin-right: 8px; }
       .comments .comments .comments__section--avatar a {
         width: 35px;
         height: 35px; }
@@ -21,7 +21,7 @@
     display: flex; }
     .comments__section--avatar {
       margin-top: 0.25rem;
-      margin-right: 15px; }
+      margin-right: 8px; }
       .comments__section--avatar a, .comments__section--avatar img {
         display: block; }
       .comments__section--avatar a {
@@ -43,7 +43,13 @@
       -ms-flex-wrap: wrap;
       flex-wrap: wrap;
       position: relative;
-      flex: 1 1 auto; }
+      flex: 1 1 auto; 
+      /*  */
+      background-color: #F0F2F5;
+      border-radius: 22px;
+      padding: 8px 14px;
+    
+    }
       .comments__section--content p {
         margin-bottom: 0; }
     .comments__section--user, .comments__section--time, .comments__section--text {
@@ -53,6 +59,13 @@
       font-weight: 500;
       color: #5a67d8;
       margin-right: 0.25rem; }
+      .comments__section--time {
+            font-weight: 400;
+    
+    letter-spacing: -1px;
+    color: gray;
+    font-size: 14px;
+      }
     .comments__section--time::before {
       content: ' - '; }
     .comments__section--text {
@@ -96,10 +109,31 @@
         width: 35px;
         height: 35px; }
   .comments__hidden {
-    padding-left: 55px; }
+    margin-top: 2px;
+    padding-left: 55px; 
+  }
+  .comments__hidden button {
+    color: gray;
+    transition: unset;
+    border-radius: 6px;
+  }
+  .comments__hidden button:hover {
+    color: gray;
+  }
+  .comments__hidden button.reply {
+    font-weight: 600;
+  }
+  .comments__hidden button.reply span:last-child {
+    margin-left: 2px;
+  }
+  .comments__hidden button.reply span:first-child {
+    vertical-align: text-top;
+  }
     .comments__hidden .icons {
       display: inline-block;
-      transform: rotate(200deg); }
+      transform: rotate(200deg); 
+      margin-right: 4px;
+    }
     .comments__hidden a {
       font-size: 0.9rem; }
   .comments .comments__form {

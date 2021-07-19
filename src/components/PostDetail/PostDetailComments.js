@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 
 export default function PostDetailComments() {
-  const postDetail = useSelector(state => state.Posts.postDetail)
-  const isLogin = useSelector(state => Boolean(state.Auth.currentUser))
-  const exclude = useSelector(state => state.Comments.commentsParentPaging.exclude)
+  const postDetail = useSelector(state => state.Posts.postDetail);
+  const isLogin = useSelector(state => Boolean(state.Auth.currentUser));
+  const exclude = useSelector(state => state.Comments.commentsParentPaging.exclude);
   const postId = postDetail.id 
   const totalCommentsCount = postDetail.comment_count
 
@@ -19,6 +19,9 @@ export default function PostDetailComments() {
       postId: postId,
       parentId: 0,
       exclude: exclude
+    },
+    styleBtn: {
+      marginTop: 18
     }
   })
 

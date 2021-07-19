@@ -21,6 +21,7 @@ export default function HeaderSearch() {
 
   return (
     <div className="tcl-col-4">
+      
       <form onSubmit={handleSubmit}>
         <Input placeholder={t`Nhập từ khoá tìm kiếm`} type="search" value={searchStr} onChange={handleChange} />
       </form>

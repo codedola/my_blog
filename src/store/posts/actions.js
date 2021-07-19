@@ -156,3 +156,22 @@ export function actFetchPostDetailAsync({ slug }) {
     }
   }
 }
+
+
+export function actFetchPostsRelatedAsync({page = 1, per_page = 3, author, exclude} = {}) {
+  return async function () {
+    try {
+      const response = await PostService.getList({ page, per_page, author, exclude });
+      if (response.status === 200) {
+        return {
+          ok: true,
+          posts: response.data
+        }
+      } 
+    } catch (error) {
+      return {
+        ok: false
+      }
+    }
+  }
+}

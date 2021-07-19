@@ -43,6 +43,13 @@
   margin: 0;
   color: #718096;
   font-size: 0.75rem; }
-
+.related-post__date {
+  display: flex;
+  align-items: center;
+}
+.related-post__date .anticon {
+  line-height: 16px;
+  margin-right: 2px;
+}
 .related-post__author {
   font-weight: 600; }

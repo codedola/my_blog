@@ -6,9 +6,7 @@ import './assets/css/post-detail.css';
 import './assets/css/post-author.css';
 import './assets/css/related-posts.css';
 import './assets/css/comments.css';
-
 import 'antd/dist/antd.css';
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
