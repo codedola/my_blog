@@ -1,0 +1,1 @@
+/*eslint-disable*/module.exports={messages:{"Bài viết mới nhất":"Messages récents","Chào buổi sáng, {nickname}":["Bonjour, ",["nickname"]],"Nhập từ khoá tìm kiếm":"Entrez le mot-clé de recherche","Username không được rỗng":"Le nom d'utilisateur ne peut pas être vide","Đăng ký":"S'inscrire","Đăng nhập":"Connexion"}};
