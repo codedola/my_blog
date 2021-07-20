@@ -125,7 +125,7 @@ export function actPostCommentAsync({
 
       return { ok: true }
     } catch(err) {
-      return { ok: false }
+      return { ok: false, message: err.response.data.message }
     }
   }
 }

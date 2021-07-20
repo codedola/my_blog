@@ -9,7 +9,7 @@ export default function ArticlesLatest() {
   const posts = useSelector(state => state.Posts.articlesLatest)
 
   return (
-    <div className="latest-news section">
+    <div className="latest-news section bg-white-blue">
       <Container>
         
         <MainTitle>

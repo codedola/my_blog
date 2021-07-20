@@ -21,7 +21,7 @@ export default function ArticlesList() {
   } = usePostsPaging()
 
   return (
-    <div className="articles-list section">
+    <div className="articles-list section bg-white-blue">
       <Container>
         <MainTitle isShowBtn btnProps={{ btnText: 'Xem thêm' }}>
           Tin tổng hợp

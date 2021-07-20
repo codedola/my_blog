@@ -20,7 +20,8 @@ export default function Button({
     'btn-default': variant === 'default',
     'btn-category': variant === 'category',
     'btn-primary': variant === 'primary',
-    'btn-size-large': size === 'large'
+    'btn-size-large': size === 'large',
+    "btn-size-medium": size === "medium"
   })
 
   if (type === 'button') {

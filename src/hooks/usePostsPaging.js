@@ -5,11 +5,12 @@ import Button from "../components/shared/Button"
 
 export function usePostsPaging({
   actionAsync = actFetchPostsAsync,
+  selectorFn = state => state.Posts.articlesPaging,
   extraParams = {}
 } = {}) {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-  const articlesPaging = useSelector(state => state.Posts.articlesPaging)
+  const articlesPaging = useSelector(selectorFn)
   const posts = articlesPaging.list;
   const page = articlesPaging.page;
   const totalPages = articlesPaging.totalPages;

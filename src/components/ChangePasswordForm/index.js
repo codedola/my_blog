@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { actChangePasswordAsync } from "../../store/users/actions"
 
-export default function ChangePasswordForm() {
+export default function ChangePasswordForm({sizeBtn = "large"}) {
     const dispatch = useDispatch();
     const history = useHistory();
     const [showPassword, setShowPassword] = useState({
@@ -88,10 +88,10 @@ export default function ChangePasswordForm() {
 
                 <Button
                     variant="primary"
-                    size="large"
+                    size= {sizeBtn}
                     htmlType="submit"
                     loading={loading}
-                   
+                    
                 >
                     <Trans>Đổi Mật Khẩu</Trans>
                 </Button>         

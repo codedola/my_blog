@@ -8,10 +8,10 @@ import PostsCategory from './pages/PostsCategory';
 import LoginPage from './pages/LoginPage';
 import PostsSearch from './pages/PostsSearch';
 import PostDetailPage from './pages/PostDetail';
-import DashboardPage from './pages/dashboard';
 import RegisterPage from "./pages/RegisterPage";
 import ChangePassword from "./pages/ChangePassword";
 import PostTag from "./pages/PostTag";
+import  Dashboard from "./pages/Dashboard";
 import { useRouteMatch } from 'react-router-dom'
 import { actFetchCategoriesAsync } from "./store/categories/actions";
 import { actFetchMenusAsync } from "./store/menus/actions";
@@ -21,7 +21,7 @@ import { activateLang } from "./i18n";
 
 function App() {
   const dispatch = useDispatch();
-  const isDashboard = useRouteMatch('/dashboard')
+  const isDashboard = useRouteMatch('/dashboard');
   const lang = useSelector(state => state.App.lang)
 
   useEffect(() => {
@@ -42,8 +42,8 @@ function App() {
   
   return (
     <div className="wrapper-content">
-      { !isDashboard && <Header /> }
-
+      {/* { !isDashboard && <Header /> } */}
+      <Header />
       <Switch>
         <Route path="/login" exact>
           <LoginPage />
@@ -71,16 +71,20 @@ function App() {
         <Route path="/change-password" exact>
           <ChangePassword />
         </Route>
-        
-        <Route path="/dashboard" exact>
-          <DashboardPage />
-        </Route>
 
-        <Route path="/">
+        <Route path="/dashboard">
+          <Dashboard />
+        </Route>
+        
+
+        <Route path="/" exact>
           <Homepage />
         </Route>
       </Switch>
-      <div className="spacing" />
+      {
+        !isDashboard && <div className="spacing" />
+      }
+      
       
       { !isDashboard && <Footer /> }
     </div>

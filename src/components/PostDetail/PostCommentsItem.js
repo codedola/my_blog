@@ -9,7 +9,6 @@ import { Button } from 'antd';
 import { LoadingOutlined , CommentOutlined } from "@ant-design/icons"
 
 function PostCommentsItem({ parentId, comment }) {
-  console.log(comment)
   const postDetail = useSelector(state => state.Posts.postDetail)
   const [isShowForm, setIsShowForm] = useState(false)
 
@@ -78,6 +77,20 @@ function PostCommentsItem({ parentId, comment }) {
         )
       }
 
+      
+      {/* Reply form */}
+      {
+        isCmtParent && isShowForm && (
+          <PostCommentsForm 
+            postId={postId} 
+            parentId={comment.id}
+            isShowCancelBtn={true}
+            onCancelForm ={() => {setIsShowForm(false)}}
+            placeholder={`Phản hồi bình luận của @${comment.author_data.nickname}`}
+          />
+        )
+      }
+
       {/* Reply Comments */}
 
       {
@@ -92,16 +105,6 @@ function PostCommentsItem({ parentId, comment }) {
         )
       }
 
-      {/* Reply form */}
-      {
-        isCmtParent && isShowForm && (
-          <PostCommentsForm 
-            postId={postId} 
-            parentId={comment.id}
-            placeholder={`Phản hồi bình luận của @${comment.author_data.nickname}`}
-          />
-        )
-      }
     </li>
   )
 }

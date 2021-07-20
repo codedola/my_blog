@@ -8,6 +8,7 @@ function PostDetailSidebar() {
   const post = useSelector(state => state.Posts.postDetail);
 
   if (!post) return null;
+  
   const authorID = post.author;
   const postID = post.id;
   const avatar = getAvatarUser(authorID, post.author_data.avatar);

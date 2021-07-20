@@ -1,9 +1,16 @@
+
+.login {
+  color: #718096;
+    background-color: #f8f8f8;
+}
 .form-login-register {
   width: 100%;
   padding: 2rem;
-  border-radius: 1rem;
-  background-color: #fff;
-  box-shadow: rgba(1, 1, 1, 0.05) 1px 1px 5px 0px; }
+  border-radius: 8px;
+  border: 1px solid rgba(245, 245, 245, 0.616);
+  background-color: rgb(255, 255, 255);
+  box-shadow: rgba(1, 1, 1, 0.05) 1px 1px 5px 0px; 
+}
 
 .form-control {
   position: relative;

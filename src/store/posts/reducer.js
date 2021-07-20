@@ -3,7 +3,8 @@ import {
   ACT_FETCH_POSTS,
   ACT_FETCH_LATEST_POSTS,
   ACT_FETCH_POPULAR_POSTS,
-  ACT_FETCH_POST_DETAIL
+  ACT_FETCH_POST_DETAIL,
+  ACT_FETCH_POST_USER
 } from "./actions";
 
 const initPostsState = {
@@ -16,7 +17,13 @@ const initPostsState = {
     per_page: 2,
     total: 0
   },
-  postDetail: null
+  postDetail: null,
+  postUser: {
+    list: [],
+    page: 1,
+    per_page: 4,
+    total: 0
+  }
 }
 
 function reducer(postsState = initPostsState, action) {
@@ -61,6 +68,25 @@ function reducer(postsState = initPostsState, action) {
         ...postsState,
         postDetail: action.payload.post
       }
+    case ACT_FETCH_POST_USER: {
+      const { posts, page, total, totalPages } = action.payload;
+      console.log("action post user", posts, page, total, totalPages)
+      return {
+        ...postsState,
+        postUser: {
+          ...postsState.postUser,
+            list: page === 1 
+            ? posts 
+            : [
+              ...postsState.postUser.list,
+              ...posts
+            ],
+          total,
+          page,
+          totalPages
+        }
+      }
+    }
     default:
       return postsState;
   }

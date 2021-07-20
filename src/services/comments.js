@@ -16,7 +16,7 @@ export const CommentService = {
         lang,
         post: postId,
         parent: parentId,
-        order: 'asc',
+        order: 'desc',
         ...restParams
       }
     })

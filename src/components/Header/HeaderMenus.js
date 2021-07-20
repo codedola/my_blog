@@ -4,7 +4,7 @@ import { actLogout } from '../../store/auth/actions'
 import { useSelector, useDispatch } from 'react-redux'
 import { FlagFR, FlagUK, FlagVN } from '../../components/shared/AppIcon';
 import { actChangeLange } from "../../store/app/actions";
-
+import { useRouteMatch } from "react-router-dom"
 const mapFlagByLang = {
   vi: <FlagVN />,
   en: <FlagUK />,
@@ -14,6 +14,8 @@ const mapFlagByLang = {
 
 export default function HeaderMenus() {
   const dispatch = useDispatch()
+  const isDashboard = useRouteMatch('/dashboard');
+
   const lang = useSelector(state => state.App.lang);
   const currentUser = useSelector(state => state.Auth.currentUser)
 
@@ -33,18 +35,23 @@ export default function HeaderMenus() {
     <div className="tcl-col-6">
       {/* Nav */}
       <div className="header-nav">
-        <HeaderMainMenus />
+        {
+          !isDashboard ? <HeaderMainMenus /> : null
+        }
+        
         <ul className="header-nav__lists">
           {
             !currentUser 
-              ? <li className="user"><Link to="/login"><i className="icons ion-person" /> Tài khoản</Link></li>
+              ? <li className="user"><Link to="/login"><i className="icons ion-person" />
+                Tài khoản</Link></li>
               : (
                 <li className="user">
                   <Link to="/dashboard"><i className="icons ion-person" /> { currentUser.nickname }</Link>
-                  <ul>
+                  {
+                    !isDashboard ?  <ul>
                     <li><Link to="/" onClick={handleLogout}>Logout</Link></li>
-                    <li><Link to="/change-password">Password</Link></li>
-                  </ul>
+                  </ul> : null
+                  }
                 </li>
               )
           }

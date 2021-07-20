@@ -5,10 +5,28 @@ export const ACT_FETCH_LATEST_POSTS = 'ACT_FETCH_LATEST_POSTS';
 export const ACT_FETCH_POPULAR_POSTS = 'ACT_FETCH_POPULAR_POSTS';
 export const ACT_FETCH_POSTS = 'ACT_FETCH_POSTS';
 export const ACT_FETCH_POST_DETAIL = 'ACT_FETCH_POST_DETAIL';
+export const ACT_FETCH_POST_USER = "ACT_FETCH_POST_USER";
 
 /**
  * ACTION CREATORS
  */
+
+export function actFetchPostUser({
+      posts = [],
+      page,
+      total,
+      totalPages
+} = {}) {
+  return {
+    type: ACT_FETCH_POST_USER,
+    payload: {
+      posts,
+      page,
+      total,
+      totalPages
+    }
+  }
+}
 export function actFetchLatestPosts({ posts = [] }) {
   return {
     type: ACT_FETCH_LATEST_POSTS,
@@ -172,6 +190,33 @@ export function actFetchPostsRelatedAsync({page = 1, per_page = 3, author, exclu
       return {
         ok: false
       }
+    }
+  }
+}
+/**  posts = [],
+      page,
+      total,
+      totalPages */
+export function actFetchPostCurrentUserAsync({ page = 1, per_page = 4, author} = {}) {
+  return async function (dispatch) {
+    try {
+      const response = await PostService.getList({ page, per_page, author });
+      console.log("response current user post", response);
+      if (response.status === 200) {
+        const posts = response.data;
+        const total = Number(response.headers["x-wp-total"]);
+        const totalPages = Number(response.headers["x-wp-totalpages"])
+
+        dispatch(actFetchPostUser({
+          posts,
+          page ,
+          total,
+          totalPages
+        }))
+      }
+
+    } catch (error) {
+      
     }
   }
 }

@@ -1,0 +1,10 @@
+.user__detail {
+    height: 100vh;
+}
+
+.user__detail-menu, .user__detail-content {
+    background-color: #fff;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+

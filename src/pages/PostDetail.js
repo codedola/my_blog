@@ -44,7 +44,7 @@ function PostDetail() {
 
   return (
     <>
-      <main className="post-detail">
+      <main className="post-detail bg-white-blue">
         <div className="spacing" />
         <PostDetailHead />
 

@@ -6,11 +6,11 @@ import { PATHS } from "../constants";
 //
 export default function useAuth() {
     const history = useHistory()
-    const currentUser = useSelector(state => state.Auth.currentUser)
+    const token = useSelector(state => state.Auth.token)
     
     useEffect(function () {
-        if (!currentUser) {
+        if (!token || token === "") {
             history.push(PATHS.LOGIN);
         }
-    }, [currentUser, history])
+    }, [token, history])
 }
