@@ -54,7 +54,7 @@ export default function PostsCategory() {
   }
 
   return (
-    <div className="articles-list section">
+    <div className="articles-list section bg-white-blue">
       <div className="tcl-container">
         
         <MainTitle isSearch={true}>

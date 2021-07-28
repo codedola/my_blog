@@ -18,7 +18,7 @@ export default function Footer() {
   }, [])
 
   return (
-    <footer id="footer" className="bg-white">
+    <footer id="footer" className="bg-white-blue">
       <div className="tcl-container">
         <div className="footer">
           <div className="tcl-row">

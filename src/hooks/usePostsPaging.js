@@ -6,7 +6,8 @@ import Button from "../components/shared/Button"
 export function usePostsPaging({
   actionAsync = actFetchPostsAsync,
   selectorFn = state => state.Posts.articlesPaging,
-  extraParams = {}
+  extraParams = {},
+  styleBtn = {}
 } = {}) {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
@@ -41,7 +42,8 @@ export function usePostsPaging({
     return (
       <div className="text-center">
         <Button 
-          size="large" 
+          size="medium"
+          styleBtn= {styleBtn}
           variant="primary"
           loading={loading}
           disabled={loading}

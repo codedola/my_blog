@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { FlagFR, FlagUK, FlagVN } from '../../components/shared/AppIcon';
 import { actChangeLange } from "../../store/app/actions";
 import { useRouteMatch } from "react-router-dom"
+import { Avatar } from "antd"
+import createDefaultAvatar from "../../helpers/createDefaultAvatar"
 const mapFlagByLang = {
   vi: <FlagVN />,
   en: <FlagUK />,
@@ -30,6 +32,9 @@ export default function HeaderMenus() {
       dispatch(actChangeLange(lang))
     }
   }
+ 
+  const avatarCurrUser = createDefaultAvatar(currentUser?.id,  currentUser?.simple_local_avatar?.full)
+
 
   return (
     <div className="tcl-col-6">
@@ -42,15 +47,24 @@ export default function HeaderMenus() {
         <ul className="header-nav__lists">
           {
             !currentUser 
-              ? <li className="user"><Link to="/login"><i className="icons ion-person" />
+              ? <li className="user"><Link to="/login">
+                <i className="icons ion-person" />
                 Tài khoản</Link></li>
               : (
                 <li className="user">
-                  <Link to="/dashboard"><i className="icons ion-person" /> { currentUser.nickname }</Link>
+                  <Link to="/dashboard"> 
+                    <Avatar
+                      size={28}
+                      src={ avatarCurrUser }
+                      style={{marginRight: 4, verticalAlign: "middle"}}
+                    />
+                        <span>{currentUser.nickname}</span>
+                  </Link>
                   {
-                    !isDashboard ?  <ul>
-                    <li><Link to="/" onClick={handleLogout}>Logout</Link></li>
-                  </ul> : null
+                    !isDashboard ?
+                      <ul>
+                        <li><Link to="/" onClick={handleLogout}>Logout</Link></li>
+                    </ul> : null
                   }
                 </li>
               )

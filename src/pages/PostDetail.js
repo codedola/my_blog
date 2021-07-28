@@ -59,6 +59,7 @@ function PostDetail() {
             </div>
           </Container>
         </div>
+        <div className="spacing"></div>
       </main>
       <LoadingPage loading={ status === 'loading' ? true : false }/>
     </>

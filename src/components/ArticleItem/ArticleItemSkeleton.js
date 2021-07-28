@@ -7,15 +7,19 @@ export default function ArticleItemSkeleton({
   isShowDesc = false,
   isShowCategoies = false,
   isShowAvatar = true,
+   isDashboard = false,
 }) {
 
   const classes = cls('article-item', {
     'style-row': isStyleRow,
     'style-card': isStyleCard,
+    'card-dashboard': isDashboard
   })
 
   return (
-    <article className={classes}>
+    <article className={classes} style={{
+      height: isDashboard ? "150px" : "100%"
+    }}>
       <div className="article-item__thumbnail">
         <Skeleton.Image active/>
       </div>

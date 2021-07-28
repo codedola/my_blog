@@ -49,23 +49,21 @@ export default function PostsCategory() {
     )
   }
   return (
-    <div className="articles-list section">
+    <div className="articles-list section bg-white-blue">
       <div className="tcl-container">
-        {/* Main Title */}
         <MainTitle isSearch={true}>Có {totalElements} kết quả tìm kiếm với từ khoá "{searchStr}"</MainTitle>
-        {/* End Main Title */}
-        {/* End Row News List */}
+      
         <Row className="tcl-jc-center">
           {
             totalElements > 0 ? posts.map(post => {
               return (
                 <Col md={9} xs={12} key={post.id}>
-                  <ArticleItem post={post} isStyleCard isShowCategoies isShowDesc/>
+                  <ArticleItem post={post} isStyleCard isShowCategoies isShowDesc />
                 </Col>
               )
-            }) : <Empty />
+            }) : <Empty description='Không tìm thấy bài viết' imageStyle={{height: 220}} />
           }
-        </Row>{/* End Row News List */}
+        </Row>
         
         {renderButtonLoadmore()}
         

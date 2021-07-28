@@ -55,7 +55,7 @@ export default function PostTag() {
   }
 
   return (
-    <div className="articles-list section">
+    <div className="articles-list section bg-white-blue">
       <div className="tcl-container">
         
         <MainTitle isSearch={true}>Có {totalElements} kết quả tìm kiếm cho thẻ #{tag?.name}</MainTitle>

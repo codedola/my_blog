@@ -73,8 +73,13 @@ body {
   background-color: #fff; }
 
 .bg-white-blue {
-  background-color: #f0f8f8; }
-
+  background-color: #f0f8f8; 
+   /* background-color: #fafafa; */
+}
+.bg-white-gray {
+  /* background-color: #fafafa; */
+  background-color: #fcfcfc;
+}
 .text-center {
   text-align: center; }
 

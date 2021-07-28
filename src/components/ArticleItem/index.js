@@ -14,11 +14,13 @@ export default function ArticleItem({
   isShowDesc = false,
   isShowCategoies = false,
   isShowAvatar = true,
+  isDashboard = false,
   post
 }) {
   const classes = cls('article-item', {
     'style-card': isStyleCard,
     'style-row': isStyleRow,
+    'card-dashboard': isDashboard
   })
 
   if (!post) {
@@ -41,8 +43,11 @@ export default function ArticleItem({
   const viewCount = post.view_count;
   const categoriesId = post.categories;
 
+
   return (
-    <article className={classes}>
+    <article className={classes} style={{
+      height: isDashboard ? "150px" : "100%"
+    }}>
       <ArticleItemThumb 
         title={title}
         slugLink={slugLink}

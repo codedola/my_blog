@@ -201,7 +201,7 @@ export function actFetchPostCurrentUserAsync({ page = 1, per_page = 4, author} =
   return async function (dispatch) {
     try {
       const response = await PostService.getList({ page, per_page, author });
-      console.log("response current user post", response);
+  
       if (response.status === 200) {
         const posts = response.data;
         const total = Number(response.headers["x-wp-total"]);
@@ -213,10 +213,22 @@ export function actFetchPostCurrentUserAsync({ page = 1, per_page = 4, author} =
           total,
           totalPages
         }))
+
+        return {
+          ok: true
+        }
+      } else {
+        return {
+          ok: false,
+          message: "Error post current user"
+        }
       }
 
     } catch (error) {
-      
+      return {
+        ok: false,
+        error
+      }
     }
   }
 }
