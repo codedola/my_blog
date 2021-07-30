@@ -1,5 +1,6 @@
 import React from 'react'
-import { Form, Input, Button } from 'antd';
+import { Form, Input } from 'antd';
+import Button from "../shared/Button"
 import { useSelector } from "react-redux"
 /* eslint-disable no-template-curly-in-string */
 
@@ -7,7 +8,6 @@ const validateMessages = {
   required: '${label} is required!',
   types: {
     email: '${label} is not a valid email!',
-    number: '${label} is not a valid number!',
   },
   number: {
     range: '${label} must be between ${min} and ${max}',
@@ -28,18 +28,29 @@ export default function UserProfileForm() {
         console.log(values);
     };
     return (
-        <Form {...layout}  name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
+        <Form
+            {...layout}
+            name="nest-messages"
+            onFinish={onFinish}
+            size="large"
+            validateMessages={validateMessages}
+        >
             <Form.Item
-                name={['user', 'user_name']}
-                label="Username"
-                rules={[
-                    {
-                        required: true,
-                    },
-                ]}
+                label="First name"
+                name={['user', 'first_name']}
+                rules={[{ required: true }]}
+                
             >
-                <Input defaultValue = {currentUser?.user_name}  />
-                </Form.Item>
+                <Input defaultValue={currentUser?.first_name}  placeholder="Your first name" />
+            </Form.Item>
+
+            <Form.Item
+                label="Last name"
+                name={['user', 'last_name']}
+                rules={[{ required: true }]}  
+            >
+                <Input defaultValue={currentUser?.last_name} placeholder="Your last name" />
+            </Form.Item>
 
             <Form.Item
                 name={['user', 'nickname']}
@@ -50,30 +61,23 @@ export default function UserProfileForm() {
                     },
                 ]}
             >
-                <Input defaultValue = {currentUser?.nickname}  />
-            </Form.Item>
-            <Form.Item
-                name={['user', 'email']}
-                label="Email"
-                rules={[
-                    {
-                        required: true,
-                        type: 'email',
-                    },
-                ]}
-            >
-                    <Input defaultValue={currentUser.email} />
+                <Input defaultValue = {currentUser?.nickname}  placeholder="Your nickname" />
             </Form.Item>
           
             <Form.Item name={['user', 'description']} label="Description">
-                <Input.TextArea defaultValue={currentUser.description} />
+                <Input.TextArea defaultValue={currentUser.description} placeholder="Your description"/>
             </Form.Item>
                 
-
             <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-                <Button type="primary" htmlType="submit">
-                    Submit
-                </Button>
+                <Button
+                    variant="primary"
+                    size= "medium"
+                    htmlType="submit"
+                    //loading={loading}
+                    
+                >
+                    Thay đổi profile
+                </Button>    
             </Form.Item>
         </Form>
     )

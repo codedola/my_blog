@@ -7,13 +7,18 @@ export default function ChangePassword({isShowTitle = true, isShowSpacing = true
         <main className="login">
             {
                 isShowSpacing ? <div className="spacing" /> : null
-            }
-            
+            } 
             <div className="tcl-container">
                 <div className="tcl-row">
                 <div className="tcl-col-12 tcl-col-sm-6 block-center">
-                        {isShowTitle ?
-                            <h1 className="form-title text-center"><Trans>Đổi mật khẩu</Trans></h1> : null}
+                    {
+                        isShowTitle ?
+                            <h1 className="form-title text-center">
+                                <Trans>Đổi mật khẩu</Trans>
+                            </h1>
+                            :
+                            null
+                    }
                     <ChangePasswordForm />
                 </div>
                 </div>

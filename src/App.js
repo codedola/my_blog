@@ -44,6 +44,7 @@ function App() {
     <div className="wrapper-content">
       {/* { !isDashboard && <Header /> } */}
       <Header />
+      
       <Switch>
         <Route path="/login" exact>
           <LoginPage />

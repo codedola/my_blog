@@ -1,6 +1,8 @@
 .user__profile {
- height: 100vh;
  background-color: #fcfcfc;
+ padding-top: 24px;
+ padding-bottom: 24px;
+ height: 100%;
 }
 
 .user__profile .user__profile-img {
@@ -16,7 +18,11 @@
     font-size: 10px;
    
 }
-
+ .user__profile .user__profile-img .ant-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+ }
 .ant-image-mask .ant-image-mask-info span {
 vertical-align: middle;
 }
@@ -26,10 +32,25 @@ vertical-align: middle;
 }
 .user__profile .user__profile-info--img h3 {
     margin-bottom: 0;
+    font-size: 22px;
+    color: rgb(41, 41, 41);
 }
 
-.user__profile .user__profile-info--img p {
+.user__profile .user__profile-info--img button {
     word-spacing: -1px;
     font-weight: 600;
    color: #0095f6;
+   padding-left: 0;
+}
+
+.user__profile .user__profile-info--img button.ant-btn-text:hover, 
+button.ant-btn-text:focus, button.ant-btn-text:active {
+    background: unset;
+    background-color: unset;
+}
+
+/* Hidden Input File */
+
+.user__profile .user__profile-info--img input.file_avatar {
+    display: none;
 }

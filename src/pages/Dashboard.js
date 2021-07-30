@@ -1,12 +1,12 @@
 import "../assets/css/user-detail.css"
 import React, { useState } from 'react';
 import {  useRouteMatch, Switch, Route, Link } from "react-router-dom";
-import { Row, Col, Layout, Menu, Button } from 'antd';
+import { Row, Col, Layout, Menu, Button} from 'antd';
 import {
     LogoutOutlined, IdcardOutlined,
     FormOutlined, GlobalOutlined,
-    FileDoneOutlined, MenuUnfoldOutlined,
-    MenuFoldOutlined,
+    FileDoneOutlined, ArrowLeftOutlined,
+    ArrowRightOutlined,
 } from '@ant-design/icons';
 import UserDetailTopic from "../components/UserDetailTopic";
 import { useSelector, useDispatch } from "react-redux";
@@ -33,16 +33,22 @@ export default function Dashboard() {
 
     return (
         <Layout className="user__detail">
-            <Row gutter={[12, 12]} style={{ height: "100%" }}>
+            <Row gutter={[10, 10]} style={{ height: "100%" }}>
                 <Col md={collapsed ? 2 : 6} xs={24} className="user__detail-menu">
-                    <Button type="primary"
-                        onClick={() => setCollapsed(!collapsed)}
-                        style={{ marginBottom: 16 }}
-                    >
-                        {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-                    </Button>
+                    <div className="arrow_menu">
+                        <Button
+                            type="primary"
+                            shape="round"
+                            
+                            onClick={() => setCollapsed(!collapsed)}
+                        
+                        >
+                            {!collapsed ? <ArrowLeftOutlined  /> :
+                                <ArrowRightOutlined />}
+                        </Button>
+                    </div>
+
                     <Menu
-                        style={{ width: "100%", height: "100%" }}
                         mode="vertical"// inline || vertical || horizontal
                         theme="light"
                         selectedKeys={keySelected}
@@ -61,14 +67,18 @@ export default function Dashboard() {
                         <Menu.Item key="5" icon={<GlobalOutlined />} disabled>
                             Vietnamese
                         </Menu.Item>
-                       
+                      
                         <Menu.Item key="6" icon={<LogoutOutlined />} onClick={handleLogout} danger>
                             Đăng xuất
                         </Menu.Item> 
                     </Menu>
                       
                 </Col>
-                <Col md={collapsed ? 22 : 18} xs={24} className="user__detail-content">
+                <Col
+                    md={collapsed ? 22 : 18} xs={24}
+                    className="user__detail-content"
+                    style={{ paddingRight: 15 }}
+                >
                     <Switch>
                         <Route exact path={path} >
                           <ArticlesCurrentUser authorID={currentUser.id} />

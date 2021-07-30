@@ -33,7 +33,6 @@ export default function ArticlesCurrentUser({authorID}) {
       selectorFn: (state) => state.Posts.postUser,
       extraParams: {
         author: authorID,
-        
       }
   })
     
@@ -51,11 +50,9 @@ export default function ArticlesCurrentUser({authorID}) {
         posts.length > 0 ? (
             <Container>
               <Row>
-               {
+              {
                 posts.map(handleMap(loading)) 
-                } 
-              
-              
+              } 
               </Row>
             {!loading ? renderButtonLoadmore() : null}
            
