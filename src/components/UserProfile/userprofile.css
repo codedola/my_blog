@@ -54,3 +54,9 @@ button.ant-btn-text:focus, button.ant-btn-text:active {
 .user__profile .user__profile-info--img input.file_avatar {
     display: none;
 }
+
+/* ----------- Form -------------- */
+
+.user__profile .user_profile-form span.ant-form-item-children-icon{
+   top: 44%;
+}

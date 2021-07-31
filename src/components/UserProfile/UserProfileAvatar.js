@@ -2,42 +2,29 @@ import React, {useState, useRef} from 'react'
 import { Row, Col, Image, Button } from "antd"
 import { useSelector } from "react-redux"
 import createDefaultAvatar from "../../helpers/createDefaultAvatar"
-import Notification from '../shared/Notification'
+import CheckImgBeforeUpload from '../shared/CheckImgBeforeUpload'
 
-function CheckImgBeforeUpload(file) {
-  const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-  if (!isJpgOrPng) {
-      Notification({
-          type: "error", placement: "topRight",
-          message: "Có lỗi xảy ra", description: "Bạn chỉ được upload JPG/PNG file!"
-      })
-  }
-  const isLt2M = file.size / 1024 / 1024 < 2;
-  if (!isLt2M) {
-     Notification({
-          type: "error", placement: "topRight",
-          message: "Có lỗi xảy ra", description: "Hình ảnh phải nhỏ hơn 2MB!"
-      })
-  }
-  return isJpgOrPng && isLt2M;
-}
 
-export default function UserProfileAvatar() {
+export default function UserProfileAvatar({handleSetAvatarUser}) {
     const [urlPreview, setUrlPreview] = useState(null)
     const inputFile = useRef(null);
     const currentUser = useSelector(state => state.Auth.currentUser);
+    
     
     const avatarCurrUser = createDefaultAvatar(currentUser.id,
         currentUser?.simple_local_avatar?.full);
 
     const hanldeOnChangeAvatar = (event) => {
-        const file  = event.target.files[0]
+        const file = event.target.files[0];
+       
         const reader = new FileReader();
     
         reader.onload = function (e) {
             const avatarCorrect = CheckImgBeforeUpload(file);
             if (avatarCorrect) {
-                setUrlPreview(e.target.result)
+                setUrlPreview(e.target.result);
+                handleSetAvatarUser && typeof handleSetAvatarUser === "function"
+                    && handleSetAvatarUser(file)
             } else {
                 setUrlPreview(null)
             }

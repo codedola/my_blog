@@ -49,7 +49,7 @@ export default function Dashboard() {
                     </div>
 
                     <Menu
-                        mode="vertical"// inline || vertical || horizontal
+                        mode="inline"
                         theme="light"
                         selectedKeys={keySelected}
                         onSelect={onSelectedKey}

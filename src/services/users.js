@@ -34,5 +34,19 @@ export const UserService = {
         new_password: newPassword,
         confirm_new_password: confirmNewPassword
       })
+  },
+  UploadProfile(
+    { description, media_id = 127, nickname, first_name, last_name, ...restParams }
+  ) {
+    return api.callWithToken().put("/wp/v2/users/me", {
+      description,
+      simple_local_avatar: {
+          media_id
+      },
+      nickname,
+      first_name,
+        last_name,
+      ...restParams
+    })
   }
 }

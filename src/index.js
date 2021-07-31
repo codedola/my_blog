@@ -20,9 +20,9 @@ import { activateLang } from './i18n'
 import { getLang } from './store/app/reducer';
 
 activateLang(getLang())
-
+// React.StrictMode
 ReactDOM.render(
-  <React.StrictMode>
+  <>
       <Provider store={store}>
         <BrowserRouter>
           <I18nProvider i18n={i18n}>
@@ -30,7 +30,7 @@ ReactDOM.render(
           </I18nProvider>
         </BrowserRouter>
       </Provider>
-  </React.StrictMode>,
+  </>,
   document.getElementById('root')
 );
 

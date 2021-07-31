@@ -1,18 +1,7 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { Form, Input } from 'antd';
-import Button from "../shared/Button"
-import { useSelector } from "react-redux"
-/* eslint-disable no-template-curly-in-string */
-
-const validateMessages = {
-  required: '${label} is required!',
-  types: {
-    email: '${label} is not a valid email!',
-  },
-  number: {
-    range: '${label} must be between ${min} and ${max}',
-  },
-}
+import Button from "../shared/Button";
+import { useSelector} from "react-redux"
 
 const layout = {
   labelCol: {
@@ -22,50 +11,72 @@ const layout = {
     span: 12,
   },
 };
-export default function UserProfileForm() {
+
+
+export default function UserProfileForm({ handleSetInfoUser, handleUploadProfile, userInfo }) {
+    const [isData, setIsData] = useState(true)
     const currentUser = useSelector(state => state.Auth.currentUser);
-    const onFinish = (values) => {
-        console.log(values);
-    };
+
+    useEffect(function () {
+        if (userInfo.nickname !== "") {
+            setIsData(true)
+        } else {
+            setIsData(false)
+        }
+    }, [userInfo])
+    
+    const handleChangeValues = (objField) => {
+        const [keyField, value] = Object.entries(objField)[0];
+        handleSetInfoUser && typeof handleSetInfoUser === "function"
+            && handleSetInfoUser(keyField, value)
+    }
+
+    const onSubmitForm = () => {
+        handleUploadProfile && typeof handleUploadProfile === "function" &&
+            handleUploadProfile();
+    }
     return (
         <Form
             {...layout}
             name="nest-messages"
-            onFinish={onFinish}
+            className="user_profile-form"
             size="large"
-            validateMessages={validateMessages}
+            initialValues={{
+                first_name: currentUser?.first_name,
+                last_name: currentUser?.last_name,
+                nickname: currentUser?.nickname,
+                description: currentUser?.description
+            }}
+            onFinish={onSubmitForm}
+            onValuesChange = {handleChangeValues}
+           
         >
             <Form.Item
                 label="First name"
-                name={['user', 'first_name']}
-                rules={[{ required: true }]}
-                
+                name='first_name'
             >
-                <Input defaultValue={currentUser?.first_name}  placeholder="Your first name" />
+                <Input />
             </Form.Item>
 
             <Form.Item
                 label="Last name"
-                name={['user', 'last_name']}
-                rules={[{ required: true }]}  
+                name='last_name'
             >
-                <Input defaultValue={currentUser?.last_name} placeholder="Your last name" />
+                <Input />
             </Form.Item>
 
             <Form.Item
-                name={['user', 'nickname']}
+                name='nickname'
                 label="Nickname"
-                rules={[
-                    {
-                        required: true,
-                    },
-                ]}
+                hasFeedback
+                validateStatus={isData ? "success" : "error"}
+                help={isData ? null : "Nickname is required!"} 
             >
-                <Input defaultValue = {currentUser?.nickname}  placeholder="Your nickname" />
+                <Input />
             </Form.Item>
           
-            <Form.Item name={['user', 'description']} label="Description">
-                <Input.TextArea defaultValue={currentUser.description} placeholder="Your description"/>
+            <Form.Item name='description' label="Description">
+                <Input.TextArea />
             </Form.Item>
                 
             <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
@@ -74,7 +85,6 @@ export default function UserProfileForm() {
                     size= "medium"
                     htmlType="submit"
                     //loading={loading}
-                    
                 >
                     Thay đổi profile
                 </Button>    

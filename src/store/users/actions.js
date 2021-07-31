@@ -1,4 +1,6 @@
 import { UserService } from "../../services/users";
+import { MediaServices } from "../../services/media";
+import { actSaveCurrentUser } from "../auth/actions";
 
 export function actChangePasswordAsync({
   currentPassword,
@@ -23,6 +25,59 @@ export function actChangePasswordAsync({
       return {
         ok: false,
         message: err?.response?.data?.message || "Thay đổi mật khẩu thất bại"
+      }
+    }
+  }
+}
+
+export function actUploadUserProfileAsync({
+  file, description, nickname, first_name, last_name
+}) {
+  return async function (dispatch, getState) {
+    try {
+      let resProfileData = null;
+      
+      if (!file || file === null) {
+        let media_id = getState().Auth
+          .currentUser?.simple_local_avatar?.media_id;
+        
+        media_id = media_id ? media_id : 127;
+        const resProfile = await UserService.UploadProfile({
+          description, nickname, first_name, last_name, media_id
+        })
+        resProfileData = resProfile;
+      } else {
+        const formMedia = new FormData();
+        formMedia.append('file', file);
+
+        const resMedia = await MediaServices.UploadMedia(formMedia);
+
+        if (resMedia.status === 201) {
+          const media_id = resMedia.data.id;
+          
+          const resProfile = await UserService.UploadProfile({
+            description, nickname, first_name, last_name, media_id
+          })
+
+          resProfileData = resProfile;
+
+        }
+      }
+
+      if (resProfileData.status === 200) {
+        dispatch(actSaveCurrentUser(resProfileData.data))
+        return {
+          ok: true
+        }
+      } else {
+        return {
+          ok: false
+        }
+      }
+    } catch (error) {
+      return {
+        ok: false,
+        error
       }
     }
   }
