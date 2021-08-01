@@ -11,6 +11,7 @@ export default function Button({
   className,
   loading,
   loadingPos = 'left',
+  isDisabled = false,
   styleBtn={},
   ...restProps 
 }) {
@@ -21,12 +22,13 @@ export default function Button({
     'btn-category': variant === 'category',
     'btn-primary': variant === 'primary',
     'btn-size-large': size === 'large',
-    "btn-size-medium": size === "medium"
+    "btn-size-medium": size === "medium",
+    "btn-disable": isDisabled === true
   })
 
   if (type === 'button') {
     return (
-      <button {...restProps} type={htmlType} className={classes} style={styleBtn} >
+      <button {...restProps} type={htmlType} className={classes} style={styleBtn} disabled={isDisabled} >
         { loading && loadingPos === 'left' && <Loading /> }
         { children }
         { loading && loadingPos === 'right' && <Loading /> }

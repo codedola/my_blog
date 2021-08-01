@@ -4,7 +4,6 @@ import { Divider } from 'antd';
 import UserProfileAvatar from "./UserProfileAvatar";
 import UserProfileForm from "./UserProfileForm";
 import Notification from "../shared/Notification";
-import LoadingPage from "../LoadingPage"
 import { useSelector, useDispatch } from "react-redux"
 import { actUploadUserProfileAsync } from "../../store/users/actions"
 const initUserInfo = {
@@ -15,7 +14,10 @@ const initUserInfo = {
 }
 export default function UserProfile() {
     const dispatch = useDispatch();
-    const [objFile, setObjFile] = useState(null)
+    // objFile from "input" or media_id from "library media"
+    const [objFile, setObjFile] = useState(null);
+    const [mediaID, setMediaID] = useState(null);
+
     const [loading, setLoading] = useState(false);
     const [userInfo, setUserInfo] = useState(initUserInfo);
     const currentUser = useSelector(state => state.Auth.currentUser);
@@ -27,7 +29,8 @@ export default function UserProfile() {
                 last_name, first_name, nickname, description
             })
         }
-     }, [currentUser])
+    }, [currentUser])
+    
     const handleSetAvatarUser = (file) => {
         setObjFile(file);
     }
@@ -41,9 +44,10 @@ export default function UserProfile() {
 
     const handleUploadProfile = () => {
         setLoading(true);
-        dispatch(actUploadUserProfileAsync({ file: objFile, ...userInfo }))
+        dispatch(actUploadUserProfileAsync({ file: objFile, media_id: mediaID, ...userInfo }))
             .then(function (res) {
                 setLoading(false)
+                setObjFile(null)
                 if (res.ok) {
                     Notification({
                         type: "success", message: "Thành công",
@@ -64,16 +68,19 @@ export default function UserProfile() {
     return (
         <div className="user__profile" style={{borderRadius: 10}}>
             <UserProfileAvatar
+                loading={loading}
+                objFile={objFile}
+                setMediaID={setMediaID}
+                mediaID={mediaID}
                 handleSetAvatarUser={handleSetAvatarUser}
             />
             <Divider />
             <UserProfileForm
                 handleSetInfoUser={handleSetInfoUser}
                 handleUploadProfile={handleUploadProfile}
-                userInfo = {userInfo}
+                userInfo={userInfo}
+                loading = {loading}
             />
-
-            <LoadingPage loading={loading} />
         </div>
     );
 }

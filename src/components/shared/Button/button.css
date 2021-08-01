@@ -42,3 +42,13 @@
   
   .btn svg {
     height: 1em; }
+.btn-disable {
+  background-color: #cccccc;
+  color: rgb(245, 245, 245);
+  cursor: no-drop;
+}
+
+.btn-disable:hover {
+  background-color: #cccccc;
+}
+

@@ -13,7 +13,7 @@ const layout = {
 };
 
 
-export default function UserProfileForm({ handleSetInfoUser, handleUploadProfile, userInfo }) {
+export default function UserProfileForm({ handleSetInfoUser, handleUploadProfile, userInfo, loading }) {
     const [isData, setIsData] = useState(true)
     const currentUser = useSelector(state => state.Auth.currentUser);
 
@@ -84,7 +84,8 @@ export default function UserProfileForm({ handleSetInfoUser, handleUploadProfile
                     variant="primary"
                     size= "medium"
                     htmlType="submit"
-                    //loading={loading}
+                    loading={loading}
+                    isDisabled = {!isData}
                 >
                     Thay đổi profile
                 </Button>    

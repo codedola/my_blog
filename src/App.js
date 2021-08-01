@@ -11,7 +11,9 @@ import PostDetailPage from './pages/PostDetail';
 import RegisterPage from "./pages/RegisterPage";
 import ChangePassword from "./pages/ChangePassword";
 import PostTag from "./pages/PostTag";
-import  Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/Dashboard";
+import PageNotExit from "./pages/PageNotExit";
+// 
 import { useRouteMatch } from 'react-router-dom'
 import { actFetchCategoriesAsync } from "./store/categories/actions";
 import { actFetchMenusAsync } from "./store/menus/actions";
@@ -81,6 +83,11 @@ function App() {
         <Route path="/" exact>
           <Homepage />
         </Route>
+
+        <Route path="/">
+          <PageNotExit />
+        </Route>
+
       </Switch>
       {
         !isDashboard && <div className="spacing" />

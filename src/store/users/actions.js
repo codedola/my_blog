@@ -31,13 +31,13 @@ export function actChangePasswordAsync({
 }
 
 export function actUploadUserProfileAsync({
-  file, description, nickname, first_name, last_name
+  file, media_id, description, nickname, first_name, last_name
 }) {
   return async function (dispatch, getState) {
     try {
       let resProfileData = null;
       
-      if (!file || file === null) {
+      if ((!file || file === null) && (!media_id || media_id === null)) {
         let media_id = getState().Auth
           .currentUser?.simple_local_avatar?.media_id;
         
@@ -47,22 +47,36 @@ export function actUploadUserProfileAsync({
         })
         resProfileData = resProfile;
       } else {
-        const formMedia = new FormData();
-        formMedia.append('file', file);
 
-        const resMedia = await MediaServices.UploadMedia(formMedia);
+        // file OKAY
+        if (file) {
+          const formMedia = new FormData();
+          formMedia.append('file', file);
 
-        if (resMedia.status === 201) {
-          const media_id = resMedia.data.id;
-          
-          const resProfile = await UserService.UploadProfile({
-            description, nickname, first_name, last_name, media_id
-          })
+          const resMedia = await MediaServices.UploadMedia(formMedia);
 
-          resProfileData = resProfile;
+          if (resMedia.status === 201) {
+            const media_id = resMedia.data.id;
+            
+            const resProfile = await UserService.UploadProfile({
+              description, nickname, first_name, last_name, media_id
+            })
 
+            resProfileData = resProfile;
+          }
+        }
+
+        // Media_id Okay
+        if (media_id) {
+           const resProfile = await UserService.UploadProfile({
+              description, nickname, first_name, last_name, media_id
+            })
+
+            resProfileData = resProfile;
         }
       }
+
+      // finally
 
       if (resProfileData.status === 200) {
         dispatch(actSaveCurrentUser(resProfileData.data))

@@ -8,8 +8,24 @@
 .user__profile .user__profile-img {
     display: flex;
     justify-content: flex-end;
-    
+    position: relative;
 }
+
+/* Loading Avatar */
+.profile-img_loading {
+    position: absolute;
+    background-color: #fcfcfcf8;
+  
+}
+.profile-img_loading svg {
+    position: absolute;
+    height: 32px;
+    width: 32px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .user__profile .user__profile-img .ant-image .ant-image-img, .ant-image-mask{
     border-radius: 50%;
 }
