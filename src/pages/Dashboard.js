@@ -6,7 +6,7 @@ import {
     LogoutOutlined, IdcardOutlined,
     FormOutlined, GlobalOutlined,
     FileDoneOutlined, ArrowLeftOutlined,
-    ArrowRightOutlined,
+    ArrowRightOutlined, UsergroupAddOutlined
 } from '@ant-design/icons';
 import UserDetailTopic from "../components/UserDetailTopic";
 import { useSelector, useDispatch } from "react-redux";
@@ -60,6 +60,9 @@ export default function Dashboard() {
                         </Menu.Item>
                         <Menu.Item key="3" icon={<IdcardOutlined />}>
                             <Link to={`${url}/profile`}>Profile</Link>
+                        </Menu.Item>
+                        <Menu.Item key="7" icon={<UsergroupAddOutlined />}>
+                            <Link to={`${url}/members`}>Members</Link>
                         </Menu.Item>
                         <Menu.Item key="4" icon={<FormOutlined />}>
                             <Link to={`${url}/change-password`}>Thay đổi mật khẩu</Link>

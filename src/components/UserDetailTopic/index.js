@@ -2,13 +2,18 @@ import React from 'react'
 import { useParams } from "react-router-dom";
 import ChangePasswordForm from "../ChangePasswordForm"
 import UserProfile from "../UserProfile"
+import MembersTable from '../MembersTable';
 export default function UserDetailTopic() {
     const { topicTitle } = useParams();
+
     switch (topicTitle) {
         case "profile": {
             return (
                <UserProfile />
             )
+        }
+        case "members": {
+            return <MembersTable />
         }
         case "change-password": {
             return (

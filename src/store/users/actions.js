@@ -37,6 +37,7 @@ export function actUploadUserProfileAsync({
     try {
       let resProfileData = null;
       
+      // file and media_id = null
       if ((!file || file === null) && (!media_id || media_id === null)) {
         let media_id = getState().Auth
           .currentUser?.simple_local_avatar?.media_id;
@@ -48,7 +49,7 @@ export function actUploadUserProfileAsync({
         resProfileData = resProfile;
       } else {
 
-        // file OKAY
+        // file !== null
         if (file) {
           const formMedia = new FormData();
           formMedia.append('file', file);
@@ -66,7 +67,7 @@ export function actUploadUserProfileAsync({
           }
         }
 
-        // Media_id Okay
+        // Media_id !== null
         if (media_id) {
            const resProfile = await UserService.UploadProfile({
               description, nickname, first_name, last_name, media_id

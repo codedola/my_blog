@@ -30,7 +30,7 @@ export const ModalMediaLibrary = styled(Modal)`
             {
                 border-radius: 10px;
                 box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-                background-color: #F5F5F5;
+                background-color: #e5e5e5;
             }
 
         }
@@ -54,8 +54,8 @@ export const ModalStyled = styled(Modal)`
             .ant-list {
                 .ant-list-item {
                     justify-content: center;
-                    font-weight: 700;
-                    font-size: 14px;
+                    font-weight: 600;
+                    font-size: 16px;
                     cursor: pointer;
                 }
 

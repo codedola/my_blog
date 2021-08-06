@@ -138,7 +138,7 @@ export default function UserProfileAvatar({handleSetAvatarUser, loading, objFile
                         className="library"
                         onClick={showLibraryMedia}
                     >
-                        Ảnh từ ReactBlog
+                        Ảnh từ thư viện
                     </List.Item>
                     <List.Item
                         className="cancel"

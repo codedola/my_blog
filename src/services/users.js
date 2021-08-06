@@ -48,5 +48,15 @@ export const UserService = {
         last_name,
       ...restParams
     })
+  },
+  GetListUsers({page = 1, per_page = 20, ...restParams} = {}) {
+    return api.callWithToken().get("/wp/v2/users", {
+      params: {
+        page,
+        per_page,
+        ...restParams
+      }
+    })
   }
+
 }
