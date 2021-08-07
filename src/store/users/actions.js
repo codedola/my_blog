@@ -2,6 +2,16 @@ import { UserService } from "../../services/users";
 import { MediaServices } from "../../services/media";
 import { actSaveCurrentUser } from "../auth/actions";
 
+export const ACT_GET_LIST_USER = "ACT_GET_LIST_USER";
+export function actGetListUsers({users, page, total, totalPages}) {
+  return {
+    type: ACT_GET_LIST_USER,
+    payload: {
+      users, page, total, totalPages
+    }
+  }
+}
+
 export function actChangePasswordAsync({
   currentPassword,
   newPassword,
@@ -94,6 +104,59 @@ export function actUploadUserProfileAsync({
         ok: false,
         error
       }
+    }
+  }
+}
+
+export function actGetListUsersAsync ({page = 1, ...restParam} = {}) {
+  return async function (dispatch, getState) {
+    try {
+      //const excludeID = getState().Auth.currentUser?.id; //exclude:excludeID
+      const response = await UserService.GetListUsers({page, ...restParam});
+
+      if (response.status === 200) {
+        const headers = response.headers;
+        const total = Number(headers["x-wp-total"]);
+        const totalPages =  Number(headers["x-wp-totalpages"]);
+        const users = response.data;
+        dispatch(actGetListUsers({ users, page, total, totalPages }))
+        return {
+          ok: true,
+        }
+      } else {
+        return {
+          ok: false,
+          message: "You dont have permission admin"
+        }
+      }
+    } catch (error) {
+      return {
+        ok: false,
+        error
+      }
+    }
+  }
+}
+
+
+export function actGetInfoUserByIDAsync(id) {
+  return async function (dispatch) {
+    try {
+      const response = await UserService.GetListUsers({ include: id });
+      if (response.status === 200) {
+        return {
+          ok: true,
+          data: response.data
+        }
+      } else {
+        return {
+          ok: false
+        }
+      }
+    } catch (error) {
+      return {
+          ok: false
+        }
     }
   }
 }

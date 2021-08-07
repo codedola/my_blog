@@ -16,7 +16,6 @@ function handleMap( loading = false) {
         !loading ? <ArticleItem isStyleCard isShowAvatar={false} post={post} isDashboard={true} />
           : <ArticleItemSkeleton isStyleCard isShowAvatar={false} isDashboard={true} />
       }
-     
     </Col>
   )
   }

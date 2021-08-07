@@ -48,13 +48,14 @@ export default function ArticleItem({
     <article className={classes} style={{
       height: isDashboard ? "150px" : "100%"
     }}>
+      
       <ArticleItemThumb 
         title={title}
         slugLink={slugLink}
         thumbnail={thumbnail}
       />
       <div className="article-item__content">
-
+       
         { isShowCategoies && <ArticleItemCategories categoriesId={categoriesId} /> }
         { isShowCategoies && <ArticleItemStats viewCount={viewCount} /> }
 
@@ -65,7 +66,7 @@ export default function ArticleItem({
 
         { isShowDesc && <ArticleItemDesc shortDesc={shortDesc} /> }
 
-        <ArticleItemInfo 
+         <ArticleItemInfo 
           isShowAvatar={isShowAvatar} 
           created={created}
           authorId={authorId}
@@ -74,6 +75,7 @@ export default function ArticleItem({
           authorAvatar={authorAvatar}
         />
       </div>
+
     </article>
   )
 }

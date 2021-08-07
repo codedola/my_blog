@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react'
+import React, {useState, useRef, useMemo} from 'react'
 import { Row, Col, Image, Button, List } from "antd"
 import {ModalStyled } from "../StyledComponents/UserProfileAvatar.styled";
 import { useSelector } from "react-redux"
@@ -11,7 +11,10 @@ const StyleAvatar = {
     width: 80,
     borderRadius: "50%"
 }
-export default function UserProfileAvatar({handleSetAvatarUser, loading, objFile, mediaID, setMediaID}) {
+export default function UserProfileAvatar({
+    handleSetAvatarUser, loading, objFile, mediaID, setMediaID, isShowNickname = true,
+    textInputFile = "Thay đổi ảnh đại diện", isCurrentUser = true
+}) {
     const [urlPreview, setUrlPreview] = useState(null);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [isModalLibrary, setIsModalLibrary] = useState(false);
@@ -76,6 +79,14 @@ export default function UserProfileAvatar({handleSetAvatarUser, loading, objFile
         }
     }
 
+    const currAvatar = useMemo(function () {
+        if (isCurrentUser) {
+            return urlPreview ? urlPreview : avatarCurrUser
+        } else {
+            return urlPreview ? urlPreview : "/assets/images/userdefault.png"
+        }
+    }, [isCurrentUser, urlPreview, avatarCurrUser])
+
 
     return (
        <Row>
@@ -84,7 +95,7 @@ export default function UserProfileAvatar({handleSetAvatarUser, loading, objFile
                     <Image
                         style={StyleAvatar}
                         alt="avatar"
-                        src={urlPreview ? urlPreview : avatarCurrUser}
+                        src={currAvatar}
                     />
                     {
                         loading && (objFile || mediaID )?
@@ -97,12 +108,18 @@ export default function UserProfileAvatar({handleSetAvatarUser, loading, objFile
             </Col>
             <Col span={20}>
                 <div className="user__profile-info--img">
-                    <h3>{currentUser ? currentUser.nickname : "nickname@123"}</h3>
+                    {
+                        isShowNickname ?
+                            <h3>{currentUser ? currentUser.nickname : "nickname@123"}</h3>
+                            :
+                            null
+                    }
+                    
                     <Button
                         type="text"
                         onClick={showModal}
                     >
-                        Thay đổi ảnh đại diện
+                        {textInputFile}
                     </Button>
                     <input type="file"
                         ref={inputFile} className="file_avatar"

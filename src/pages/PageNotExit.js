@@ -6,7 +6,7 @@ export default function PageNotExit() {
     return (
         <Result
             status="404"
-            title="Trang này không tồn tại :("
+            title="Trang này không tồn tại"
             subTitle="(Sorry, the page you visited does not exist.)"
             extra={<Button
                 type="primary"
