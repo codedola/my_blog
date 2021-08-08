@@ -57,6 +57,31 @@ export const UserService = {
         ...restParams
       }
     })
+  },
+  CreateNewUser({
+    username,
+    first_name,
+    last_name,
+    email,
+    password,
+    description,
+    locale = "vi",
+    media_id,
+    ...restParams
+  } = {}
+  ) {
+    return api.callWithToken().post("/wp/v2/users", {
+      username,
+      first_name,
+      last_name,
+      email,
+      password,
+      description,
+      simple_local_avatar: {
+        media_id
+      },
+      ...restParams
+    })
   }
 
 }

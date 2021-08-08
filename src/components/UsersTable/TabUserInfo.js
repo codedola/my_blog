@@ -2,24 +2,24 @@ import React, { useEffect, useState , useMemo} from 'react';
 import { Row, Col, Descriptions, Divider, Skeleton } from "antd";
 import { useDispatch } from "react-redux";
 import { actGetInfoUserByIDAsync } from "../../store/users/actions";
-import { ImageStyled, EmptyStyled, SkeletonAvatarStyled} from "../StyledComponents/UsersTable.styled";
-import createDefaultAvatar from "../../helpers/createDefaultAvatar"
+import { ImageStyled, SkeletonAvatarStyled} from "../StyledComponents/UsersTable.styled";
+import createDefaultAvatar from "../../helpers/createDefaultAvatar";
+import ArticlesCurrentUser from '../DashboardTopic/ArticlesCurrentUser';
 export default function TabUserInfo({ userInfo }) {
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(false)
     const [userData, setUserData] = useState(null)
-    const userID = Number(userInfo?.key)
     
     useEffect(function () {
         setLoading(true);
-        dispatch(actGetInfoUserByIDAsync(userID))
+        dispatch(actGetInfoUserByIDAsync(Number(userInfo?.key)))
             .then(function (res) {
                 setLoading(false)
                 if (res.ok) {
                     setUserData(res.data[0])
                 }
             })
-    }, [dispatch, userID])
+    }, [dispatch, userInfo])
 
     const avatarUser = useMemo(function () {
         return createDefaultAvatar(userData?.id, userData?.simple_local_avatar?.full)
@@ -69,7 +69,9 @@ export default function TabUserInfo({ userInfo }) {
             </Col>
             <Divider />
             <Col span={24}>
-                <EmptyStyled description={`${userData?.nickname} chưa tạo bài viết`} />
+                {
+                    userData?.id ? <ArticlesCurrentUser authorID={userData.id} isShowBg={false} /> : null
+                }
             </Col>
         </Row>
     )

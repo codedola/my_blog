@@ -160,3 +160,65 @@ export function actGetInfoUserByIDAsync(id) {
     }
   }
 }
+
+export function actCreateNewUserAsync({
+  username,
+  first_name,
+  last_name,
+  email,
+  password,
+  description,
+  media_id,
+  ...restParams
+}) {
+  return async function (dispatch) {
+    try {
+      let responseNewUser = null
+
+      if (media_id !== null && typeof media_id === "object") {
+          const formMedia = new FormData();
+          formMedia.append('file', media_id);
+
+          const resMedia = await MediaServices.UploadMedia(formMedia);
+
+          if (resMedia.status === 201) {
+            media_id = resMedia.data.id;
+            
+            responseNewUser = await UserService.UploadProfile({
+              username, first_name, last_name, email, password, description, media_id, ...restParams
+            })
+
+          }
+      }
+      
+      // media_id = number -> ok | media_id = null -> ok
+      responseNewUser = await UserService.CreateNewUser({
+        username, first_name, last_name, email, password, description, media_id, ...restParams
+      })
+
+     
+
+      console.log("reponse create new user", responseNewUser)
+      if (responseNewUser.status === 201 || responseNewUser.data) {
+        // const newUser = responseNewUser.data;
+        await dispatch(actGetListUsersAsync())
+        return {
+          ok: true,
+          message: "Tạo thành công"
+        }
+      } else {
+        return {
+          ok: false,
+         message: "Tạo thất bại"
+        }
+          
+      }
+     
+    } catch (error) {
+      return {
+        ok: false,
+        error
+      }
+    }
+  }
+}

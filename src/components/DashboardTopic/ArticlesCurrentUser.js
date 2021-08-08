@@ -4,10 +4,11 @@ import Col from '../shared/Col';
 import Container from '../shared/Container';
 import Row from '../shared/Row';
 import { usePostsPaging } from '../../hooks/usePostsPaging';
-import { Empty } from 'antd';
+import { EmptyStyled  } from "../StyledComponents/UsersTable.styled"
 import { useDispatch } from "react-redux";
 import { actFetchPostCurrentUserAsync } from "../../store/posts/actions";
 import ArticleItemSkeleton from "../ArticleItem/ArticleItemSkeleton";
+import {genKeyUserPost } from "../../store/posts/reducer"
 function handleMap( loading = false) {
   return function (post) {
     return (
@@ -21,7 +22,7 @@ function handleMap( loading = false) {
   }
 }
 
-export default function ArticlesCurrentUser({authorID}) {
+export default function ArticlesCurrentUser({authorID, isShowBg = true}) {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false)
   const {
@@ -29,7 +30,7 @@ export default function ArticlesCurrentUser({authorID}) {
       renderButtonLoadmore
   } = usePostsPaging({
       actionAsync: actFetchPostCurrentUserAsync,
-      selectorFn: (state) => state.Posts.postUser,
+      selectorFn: (state) => state.Posts.postUser[genKeyUserPost(authorID)],
       extraParams: {
         author: authorID,
       }
@@ -44,9 +45,12 @@ export default function ArticlesCurrentUser({authorID}) {
   }, [dispatch, authorID])
 
   return (
-    <div className="articles-list section bg-white-gray" style={{ height: "100%" , borderRadius: 10}}>
+    <div
+      className={`articles-list section ${isShowBg ? "bg-white-gray" : ""}`}
+      style={{ height: "100%", borderRadius: 10 }}
+    >
       {
-        posts.length > 0 ? (
+        posts?.length > 0 ? (
             <Container>
               <Row>
               {
@@ -56,9 +60,9 @@ export default function ArticlesCurrentUser({authorID}) {
             {!loading ? renderButtonLoadmore() : null}
            
             </Container>
-          ) : <Empty description="Bạn chưa tạo bài viết" imageStyle={{height: 220}} />
-      }
+          ) : <EmptyStyled description={`Chưa tạo bài viết`} /> }
    
     </div>
   )
 }
+     

@@ -1,24 +1,35 @@
 import "../UserProfile/userprofile.css"
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import UserProfileAvatar from '../UserProfile/UserProfileAvatar';
 import { Drawer, Form, Button, Col, Row, Input, Select } from 'antd';
-
+import { actCreateNewUserAsync } from "../../store/users/actions"
+import { useDispatch } from "react-redux"
 const { Option } = Select;
 
 
 export default function NewUser({ visibleForm, closeFormNewUser }) {
+    const formRef = useRef(null);
+    //
+    const dispatch = useDispatch();
+    //
     const [objFile, setObjFile] = useState(null);
     const [mediaID, setMediaID] = useState(null);
     const [loading, setLoading] = useState(false);
-
     const handleSetAvatarUser = (file) => {
         setObjFile(file);
     }
 
     const handleonSubmit = (data) => {
-        console.log(data);
-        closeFormNewUser();
+        setLoading(true)
+        const media_id = objFile || mediaID;
+        dispatch(actCreateNewUserAsync({ ...data, media_id}))
+            .then(function () {
+                formRef?.current?.resetFields();
+                closeFormNewUser();
+                setLoading(false)
+            })
     }
+   
     return (
         <Drawer
             title="Create a new user"
@@ -26,20 +37,26 @@ export default function NewUser({ visibleForm, closeFormNewUser }) {
             onClose={closeFormNewUser}
             visible={visibleForm}
             bodyStyle={{ paddingBottom: 80 }}
-        
         >
             <UserProfileAvatar
-                    loading={loading}
-                    objFile={objFile}
-                    setMediaID={setMediaID}
-                    mediaID={mediaID}
-                    handleSetAvatarUser={handleSetAvatarUser}
-                    textInputFile="Chọn ảnh đại diện"
-                    isShowNickname={false}
-                    isCurrentUser = {false}
+                loading={loading}
+                objFile={objFile}
+                setMediaID={setMediaID}
+                mediaID={mediaID}
+                handleSetAvatarUser={handleSetAvatarUser}
+                textInputFile="Chọn ảnh đại diện"
+                isShowNickname={false}
+                isCurrentUser={false}
+                isShowDeleteURLImg={true}
             />
             
-            <Form layout="vertical" style={{marginTop: 20}} hideRequiredMark onFinish={handleonSubmit}>
+            <Form
+                ref={formRef}
+                layout="vertical"
+                style={{ marginTop: 20 }}
+                hideRequiredMark
+                onFinish={handleonSubmit}
+            >
                 <Row gutter={16}>
                     <Col span={12}>
                         <Form.Item
@@ -134,7 +151,7 @@ export default function NewUser({ visibleForm, closeFormNewUser }) {
                     span: 14,
                     }}
                 >
-                    <Button type="primary" htmlType="submit">
+                    <Button type="primary" htmlType="submit" loading={loading}>
                         Create User
                     </Button>
                 </Form.Item>

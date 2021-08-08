@@ -15,7 +15,8 @@ export function actFetchPostUser({
       posts = [],
       page,
       total,
-      totalPages
+  totalPages,
+      author
 } = {}) {
   return {
     type: ACT_FETCH_POST_USER,
@@ -23,6 +24,7 @@ export function actFetchPostUser({
       posts,
       page,
       total,
+      author,
       totalPages
     }
   }
@@ -211,6 +213,7 @@ export function actFetchPostCurrentUserAsync({ page = 1, per_page = 4, author} =
           posts,
           page ,
           total,
+          author,
           totalPages
         }))
 

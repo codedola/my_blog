@@ -1,5 +1,16 @@
 import styled from 'styled-components'
-import { Modal } from "antd"
+import { Modal} from "antd"
+
+export const DeleteURLPreviewStyled = styled.p`
+    margin-top: 8px;
+    span.ant-tag {
+        height: 24px;
+        .anticon {
+            vertical-align: middle;
+        }
+    }
+`
+
 
 export const ModalMediaLibrary = styled(Modal)`
     width: 80vw !important;

@@ -23,7 +23,7 @@ export const SkeletonAvatarStyled = styled(Skeleton.Avatar)`
 export const EmptyStyled = styled(Empty)`
     margin-top: 20px;
     .ant-empty-image {
-        height: 150px;
+        height: 230px;
     }
 
     .ant-empty-description {

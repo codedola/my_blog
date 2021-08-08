@@ -18,7 +18,11 @@ const initPostsState = {
     total: 0
   },
   postDetail: null,
-  postUser: {
+  postUser: { }
+}
+
+export function genValueUserPost() {
+  return {
     list: [],
     page: 1,
     per_page: 4,
@@ -26,6 +30,9 @@ const initPostsState = {
   }
 }
 
+export function genKeyUserPost(id) {
+  return `userpost-${id}`
+}
 function reducer(postsState = initPostsState, action) {
   switch (action.type) {
     case ACT_POST_CHILD_COMMENT:
@@ -69,21 +76,49 @@ function reducer(postsState = initPostsState, action) {
         postDetail: action.payload.post
       }
     case ACT_FETCH_POST_USER: {
-      const { posts, page, total, totalPages } = action.payload;
+      const { posts, page, total, totalPages, author } = action.payload;
       console.log("action post user", posts, page, total, totalPages)
-      return {
-        ...postsState,
-        postUser: {
-          ...postsState.postUser,
-            list: page === 1 
-            ? posts 
-            : [
-              ...postsState.postUser.list,
-              ...posts
-            ],
-          total,
-          page,
-          totalPages
+      const keyUserPost = genKeyUserPost(author);
+      if (postsState.postUser[keyUserPost]) {
+        return {
+          ...postsState,
+          postUser: {
+            ...postsState.postUser,
+            [keyUserPost]: {
+              ...postsState.postUser[keyUserPost],
+              list: page === 1 
+                ? posts 
+                : [
+                  ...postsState.postUser[keyUserPost].list,
+                  ...posts
+                ],
+              total,
+              page,
+              totalPages
+            }
+              
+          }
+        }
+      } else {
+        postsState.postUser[keyUserPost] = genValueUserPost();
+        return {
+          ...postsState,
+          postUser: {
+              ...postsState.postUser,
+              [keyUserPost]: {
+                ...postsState.postUser[keyUserPost],
+                list: page === 1 
+                  ? posts 
+                  : [
+                    ...postsState.postUser[keyUserPost].list,
+                    ...posts
+                  ],
+                total,
+                page,
+                totalPages
+              }
+                
+            }
         }
       }
     }

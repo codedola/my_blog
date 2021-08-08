@@ -1,6 +1,7 @@
 import React, {useState, useRef, useMemo} from 'react'
-import { Row, Col, Image, Button, List } from "antd"
-import {ModalStyled } from "../StyledComponents/UserProfileAvatar.styled";
+import { Row, Col, Image, Button, List, Tag } from "antd"
+import {CloseCircleOutlined } from "@ant-design/icons"
+import {ModalStyled, DeleteURLPreviewStyled } from "../StyledComponents/UserProfileAvatar.styled";
 import { useSelector } from "react-redux"
 import createDefaultAvatar from "../../helpers/createDefaultAvatar"
 import CheckImgBeforeUpload from '../shared/CheckImgBeforeUpload'
@@ -13,7 +14,7 @@ const StyleAvatar = {
 }
 export default function UserProfileAvatar({
     handleSetAvatarUser, loading, objFile, mediaID, setMediaID, isShowNickname = true,
-    textInputFile = "Thay đổi ảnh đại diện", isCurrentUser = true
+    textInputFile = "Thay đổi ảnh đại diện", isCurrentUser = true, isShowDeleteURLImg = false
 }) {
     const [urlPreview, setUrlPreview] = useState(null);
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -121,6 +122,18 @@ export default function UserProfileAvatar({
                     >
                         {textInputFile}
                     </Button>
+                    {
+                        isShowDeleteURLImg ?
+                            <DeleteURLPreviewStyled
+                                onClick={() => setUrlPreview(null)}
+                                style={{cursor: "pointer"}}
+                            >
+                                <Tag icon={<CloseCircleOutlined />} color="error">
+                                    Hủy
+                                </Tag>
+                            </DeleteURLPreviewStyled> : null
+                    }
+                    
                     <input type="file"
                         ref={inputFile} className="file_avatar"
                         onChange={hanldeOnChangeAvatar}

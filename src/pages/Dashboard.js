@@ -26,6 +26,7 @@ export default function Dashboard() {
     const currentUser = useSelector(state => state.Auth.currentUser)
     
     if (!currentUser) return null;
+    
     function onSelectedKey(keyInfo) {
         setKeySelected(keyInfo.key)
     }

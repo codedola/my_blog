@@ -12,10 +12,10 @@ export function usePostsPaging({
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const articlesPaging = useSelector(selectorFn)
-  const posts = articlesPaging.list;
-  const page = articlesPaging.page;
-  const totalPages = articlesPaging.totalPages;
-  const totalElements = articlesPaging.total;
+  const posts = articlesPaging?.list;
+  const page = articlesPaging?.page;
+  const totalPages = articlesPaging?.totalPages;
+  const totalElements = articlesPaging?.total;
   const hasMoreItems = page < totalPages;
 
   function handleLoadMore() {
