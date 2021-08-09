@@ -44,3 +44,12 @@ export const ButtonFilterStyled = styled(Button)`
     }
 
 `
+
+export const ButtonEditUser = styled(Button)`
+    background-color: #e7e7e7;
+    color: gray;
+    font-size: 16px;
+    span.anticon {
+        vertical-align: text-top;
+    }
+`

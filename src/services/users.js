@@ -82,6 +82,25 @@ export const UserService = {
       },
       ...restParams
     })
+  },
+
+  DeleteUser(id) {
+    return api.callWithToken().delete(`/wp/v2/users/${id}`, {
+      data: {
+        force: true
+      }
+    })
+  },
+  EditUser({id, media_id,first_name, last_name,email,  nickname } = {}) {
+    return api.callWithToken().post(`/wp/v2/users/${id}`, {
+      first_name, last_name, email, nickname, simple_local_avatar: {
+        media_id
+      }
+    })
+  },
+
+  GetUserByID(id) {
+    return api.callWithToken().get("/wp/v2/users/" + id);
   }
 
 }

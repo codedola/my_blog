@@ -142,6 +142,7 @@ export function actGetListUsersAsync ({page = 1, ...restParam} = {}) {
 export function actGetInfoUserByIDAsync(id) {
   return async function (dispatch) {
     try {
+      // admin and user
       const response = await UserService.GetListUsers({ include: id });
       if (response.status === 200) {
         return {
@@ -196,11 +197,8 @@ export function actCreateNewUserAsync({
         username, first_name, last_name, email, password, description, media_id, ...restParams
       })
 
-     
-
-      console.log("reponse create new user", responseNewUser)
+    
       if (responseNewUser.status === 201 || responseNewUser.data) {
-        // const newUser = responseNewUser.data;
         await dispatch(actGetListUsersAsync())
         return {
           ok: true,
@@ -218,6 +216,79 @@ export function actCreateNewUserAsync({
       return {
         ok: false,
         error
+      }
+    }
+  }
+}
+
+export function actDeleteUserByIdAsync(id) {
+  return async function (dispatch) {
+    try {
+      const response = await UserService.DeleteUser(id);
+
+      if (response.status === 200) {
+        await dispatch(actGetListUsersAsync());
+
+        return {
+          ok: true,
+          nickname: response.data?.previous?.nickname
+        }
+      } else {
+        return {
+          ok: false
+        }
+      }
+      
+    } catch (error) {
+       return {
+         ok: false,
+         error
+        }
+    }
+  }
+}
+
+
+export function actEditUserProfileAsync({
+  id, media_id, first_name, last_name, email, nickname
+}) {
+  return async function (dispatch) {
+    try {
+      let responseEditUser = null;
+      console.log("media_id trong aync", media_id)
+      if (media_id !== null && typeof media_id === "object") {
+        const formMedia = new FormData();
+        formMedia.append('file', media_id);
+
+        const resMedia = await MediaServices.UploadMedia(formMedia);
+
+        if (resMedia.status === 201) {
+          media_id = resMedia.data.id;
+          
+          responseEditUser = await UserService.EditUser({
+            id, media_id, first_name, last_name, email, nickname
+          })
+
+        }
+      }
+      responseEditUser = await UserService.EditUser({
+        id, media_id, first_name, last_name, email, nickname
+      })
+
+      if (responseEditUser.status === 200) {
+        await dispatch(actGetListUsersAsync())
+        return {
+          ok: true,
+          data: responseEditUser.data
+        }
+      } else {
+        return {
+          ok: false
+        }
+      }
+    } catch (error) {
+       return {
+        ok: false
       }
     }
   }

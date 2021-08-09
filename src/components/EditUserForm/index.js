@@ -1,15 +1,16 @@
 import "../UserProfile/userprofile.css"
 import React, { useState, useRef } from 'react'
 import UserProfileAvatar from '../UserProfile/UserProfileAvatar';
-import { Drawer, Form, Button, Col, Row, Input, Select } from 'antd';
-import { actCreateNewUserAsync } from "../../store/users/actions"
+import { Drawer, Form, Button, Col, Row, Input } from 'antd';
+import {actEditUserProfileAsync  } from "../../store/users/actions"
 import { useDispatch } from "react-redux"
-const { Option } = Select;
 
 
-export default function NewUser({ visibleForm, closeFormNewUser }) {
+export default function EditUser({ visibleForm, closeFormEditUser, userEditInfo,
+    handleSetUserData, getNewTitleTabPane }) {
     const formRef = useRef(null);
     //
+    //console.log(userEditInfo)
     const dispatch = useDispatch();
     //
     const [objFile, setObjFile] = useState(null);
@@ -21,33 +22,41 @@ export default function NewUser({ visibleForm, closeFormNewUser }) {
 
     const handleonSubmit = (data) => {
         setLoading(true)
-        const media_id = objFile || mediaID;
-        dispatch(actCreateNewUserAsync({ ...data, media_id}))
-            .then(function () {
-                formRef?.current?.resetFields();
-                closeFormNewUser();
+        let media_id = objFile || mediaID;
+        if (!media_id || media_id === null) {
+            media_id = userEditInfo?.simple_local_avatar?.media_id;
+        }
+        console.log({ id: userEditInfo?.id, ...data, media_id })
+    
+        dispatch(actEditUserProfileAsync({id: userEditInfo?.id, ...data, media_id}))
+            .then(function (res) {
                 setLoading(false)
+                if (res.ok) {
+                    getNewTitleTabPane({keyId: res.data.id, newTitle: res.data.nickname})
+                    handleSetUserData(res.data)
+                    formRef?.current?.resetFields();
+                    closeFormEditUser();
+                }
             })
     }
    
     return (
         <Drawer
-            title="Create a new user"
+            title="Upload User"
             width={720}
-            onClose={closeFormNewUser}
+            onClose={closeFormEditUser}
             visible={visibleForm}
             bodyStyle={{ paddingBottom: 80 }}
         >
             <UserProfileAvatar
                 loading={loading}
                 objFile={objFile}
-                setMediaID={setMediaID}
+                setMediaID={setMediaID} // set Media_id
+                handleSetAvatarUser={handleSetAvatarUser} // set Object file
                 mediaID={mediaID}
-                handleSetAvatarUser={handleSetAvatarUser}
                 textInputFile="Chọn ảnh đại diện"
-                isShowNickname={false}
-                isAddNewUser={true}
-                isShowDeleteURLImg={true}
+                isShowNickname={true}
+                userInfo={userEditInfo}
             />
             
             <Form
@@ -56,6 +65,16 @@ export default function NewUser({ visibleForm, closeFormNewUser }) {
                 style={{ marginTop: 20 }}
                 hideRequiredMark
                 onFinish={handleonSubmit}
+            
+                initialValues={
+                    {
+                        first_name: userEditInfo?.first_name,
+                        last_name: userEditInfo?.last_name,
+                        nickname: userEditInfo?.nickname,
+                        email: userEditInfo?.email,
+                        description: userEditInfo?.description,
+                    }
+                }
             >
                 <Row gutter={16}>
                     <Col span={12}>
@@ -80,11 +99,11 @@ export default function NewUser({ visibleForm, closeFormNewUser }) {
                 <Row gutter={16}>
                     <Col span={12}>
                         <Form.Item
-                            name="username"
-                            label="Username"
-                            rules={[{ required: true, message: 'Please enter username' }]}
+                            name="nickname"
+                            label="Nickname"
+                            rules={[{ required: true, message: 'Please enter nickname' }]}
                         >
-                            <Input placeholder="Please enter username" />
+                            <Input placeholder="Please enter nickname" />
                         </Form.Item>
                     </Col>
                     <Col span={12}>
@@ -97,34 +116,6 @@ export default function NewUser({ visibleForm, closeFormNewUser }) {
                             ]}
                         >
                             <Input placeholder="Please enter email" />
-                        </Form.Item>
-                    </Col>
-                </Row>
-                <Row gutter={16}>
-                    <Col span={12}>
-                        <Form.Item
-                        name="locale"
-                        label="Locale"
-                        rules={[{ required: true, message: 'Please choose the locale' }]}
-                        >
-                        <Select placeholder="Please choose the locale">
-                            <Option value="vi">Vietname</Option>
-                            <Option value="en_US">English</Option>
-                        </Select>
-                        </Form.Item>
-                    </Col>
-                    <Col span={12}>
-                        <Form.Item
-                            label="Password"
-                            name="password"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your password!',
-                                },
-                            ]}
-                        >
-                            <Input.Password />
                         </Form.Item>
                     </Col>
                 </Row>
@@ -151,8 +142,9 @@ export default function NewUser({ visibleForm, closeFormNewUser }) {
                     span: 14,
                     }}
                 >
-                    <Button type="primary" htmlType="submit" loading={loading}>
-                        Create User
+
+                    <Button disabled={userEditInfo?.id ? false : true} type="primary" htmlType="submit" loading={loading}>
+                        Upload User
                     </Button>
                 </Form.Item>
             </Form>

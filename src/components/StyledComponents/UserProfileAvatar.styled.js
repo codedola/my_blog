@@ -81,6 +81,9 @@ export const ModalStyled = styled(Modal)`
                 .ant-list-item.cancel {
                     font-weight: 400;
                 }
+                .ant-list-item.delete {
+                    color: red;
+                }
             }
         }    
     }

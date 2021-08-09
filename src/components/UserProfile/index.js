@@ -73,6 +73,7 @@ export default function UserProfile() {
                 setMediaID={setMediaID}
                 mediaID={mediaID}
                 handleSetAvatarUser={handleSetAvatarUser}
+                userInfo = {currentUser}
             />
             <Divider />
             <UserProfileForm

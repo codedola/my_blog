@@ -2,7 +2,6 @@ import React, {useState, useRef, useMemo} from 'react'
 import { Row, Col, Image, Button, List, Tag } from "antd"
 import {CloseCircleOutlined } from "@ant-design/icons"
 import {ModalStyled, DeleteURLPreviewStyled } from "../StyledComponents/UserProfileAvatar.styled";
-import { useSelector } from "react-redux"
 import createDefaultAvatar from "../../helpers/createDefaultAvatar"
 import CheckImgBeforeUpload from '../shared/CheckImgBeforeUpload'
 import MediaModal from './MediaModal';
@@ -13,19 +12,20 @@ const StyleAvatar = {
     borderRadius: "50%"
 }
 export default function UserProfileAvatar({
-    handleSetAvatarUser, loading, objFile, mediaID, setMediaID, isShowNickname = true,
-    textInputFile = "Thay đổi ảnh đại diện", isCurrentUser = true, isShowDeleteURLImg = false
+   userInfo,  handleSetAvatarUser, loading, objFile, mediaID, setMediaID, isShowNickname = true,
+    textInputFile = "Thay đổi ảnh đại diện", isAddNewUser = false, isShowDeleteURLImg = false,
+    
 }) {
     const [urlPreview, setUrlPreview] = useState(null);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [isModalLibrary, setIsModalLibrary] = useState(false);
     const inputFile = useRef(null);
 
-    const currentUser = useSelector(state => state.Auth.currentUser);
     
     
-    const avatarCurrUser = createDefaultAvatar(currentUser.id,
-        currentUser?.simple_local_avatar?.full);
+    
+    const avatarCurrUser = createDefaultAvatar(userInfo?.id,
+        userInfo?.simple_local_avatar?.full);
 
     const hanldeOnChangeAvatar = (event) => {
         const file = event.target.files[0];
@@ -81,18 +81,18 @@ export default function UserProfileAvatar({
     }
 
     const currAvatar = useMemo(function () {
-        if (isCurrentUser) {
+        if (!isAddNewUser) {
             return urlPreview ? urlPreview : avatarCurrUser
         } else {
             return urlPreview ? urlPreview : "/assets/images/userdefault.png"
         }
-    }, [isCurrentUser, urlPreview, avatarCurrUser])
+    }, [isAddNewUser, urlPreview, avatarCurrUser])
 
 
     return (
        <Row>
             <Col span="4">
-                <div className="user__profile-img">
+                <div className="user__profile-img" style={{display: "flex"}}>
                     <Image
                         style={StyleAvatar}
                         alt="avatar"
@@ -105,13 +105,14 @@ export default function UserProfileAvatar({
                             </div> : null
                     }
                     
+                    
                 </div>
             </Col>
             <Col span={20}>
                 <div className="user__profile-info--img">
                     {
                         isShowNickname ?
-                            <h3>{currentUser ? currentUser.nickname : "nickname@123"}</h3>
+                            <h3>{userInfo ? userInfo?.nickname : "nickname@123"}</h3>
                             :
                             null
                     }
@@ -123,7 +124,7 @@ export default function UserProfileAvatar({
                         {textInputFile}
                     </Button>
                     {
-                        isShowDeleteURLImg ?
+                        isShowDeleteURLImg && urlPreview ?
                             <DeleteURLPreviewStyled
                                 onClick={() => setUrlPreview(null)}
                                 style={{cursor: "pointer"}}

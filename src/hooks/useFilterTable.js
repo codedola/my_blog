@@ -2,7 +2,7 @@ import React, {useState, useRef} from "react";
 import { Input, Button, Space } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { SearchOutlined } from '@ant-design/icons';
-import {ButtonFilterStyled } from "../StyledComponents/UsersTable.styled"
+import {ButtonFilterStyled } from "../components/StyledComponents/UsersTable.styled"
 export default function useFilterTable(dataIndex) {
     const inputSearch = useRef(null);
     const [searchText, setSearchText] = useState("");

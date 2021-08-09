@@ -18,31 +18,33 @@ export default function UsersTable() {
         ...panes,
         {
           title: `${infoUser?.nickname}`,
-          content: <h1>{infoUser?.nickname}</h1>,
+          //content: <h1>{infoUser?.nickname}</h1>,
           key: String(infoUser?.key)
         }
       ]);
     } 
-  }, [panes]) ;
+  }, [panes]);
+  
+
+  const getNewTitleTabPane = useCallback(
+    ({ keyId, newTitle }) => {
+    let paneObj = panes.find(o => o.key === String(keyId));
+    if (paneObj) {
+      setPanes([
+        ...panes.filter(o => o.key !== String(keyId)),
+        {
+          key: String(keyId),
+          title: newTitle
+        }
+      ])
+    }
+  }, [panes]
+  )
 
   const remove = targetKey => {
     targetKey = String(targetKey)
-    // let lastIndex;
-    // panes.forEach((pane, i) => {
-    //   if (pane.key === targetKey) {
-    //     lastIndex = i - 1;
-    //   }
-    // });
     const panesFilter = panes.filter(pane => pane.key !== targetKey);
-  
     setPanes(panesFilter)
-    // if (panesFilter.length && activeKey === targetKey) {
-    //   if (lastIndex >= 0) {
-    //     setActiveKey(panes[lastIndex].key);
-    //   } else {
-    //     setActiveKey(panes[0].key);
-    //   }
-    // }
   };
 
   const onChange = (activeKey) => {
@@ -61,10 +63,10 @@ export default function UsersTable() {
             tab={pane?.title}
             key={pane?.key}
           >
-            <TabUserInfo  userInfo={pane} />
+            <TabUserInfo userInfo={pane} getNewTitleTabPane={getNewTitleTabPane}/>
           </TabPane>
       ))
-  }, [panes])
+  }, [panes, getNewTitleTabPane])
 
   return (
   
