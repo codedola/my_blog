@@ -1,10 +1,12 @@
 import React, {useState, useRef} from 'react'
-import { UploadOutlined } from "@ant-design/icons"
 import { List } from "antd"
-import CheckImgBeforeUpload from '../shared/CheckImgBeforeUpload'
-import { WrapperImagePost, ImagePostStyled } from "../StyledComponents/PostCreation.Styled"
-import { ModalStyled } from "../StyledComponents/UserProfileAvatar.styled"
+import { UploadOutlined } from "@ant-design/icons"
 import MediaModal from "../UserProfile/MediaModal"
+import CheckImgBeforeUpload from '../shared/CheckImgBeforeUpload'
+import { ModalStyled } from "../StyledComponents/UserProfileAvatar.styled"
+import { WrapperImagePost, ImagePostStyled } from "../StyledComponents/PostCreation.Styled"
+
+//
 export default function UploadImagePost({handleSetAvatarUser, setMediaID}) {
     const [urlPreview, setUrlPreview] = useState(null);
     const [isModalVisible, setIsModalVisible] = useState(false);

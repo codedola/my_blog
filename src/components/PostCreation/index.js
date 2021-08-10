@@ -5,7 +5,8 @@ import { Input } from 'antd';
 import {
     ContainerEditor, WrapperInputTitle,
     WrapperPostCreation, SpacingStyled
-} from "../StyledComponents/PostCreation.Styled"
+} from "../StyledComponents/PostCreation.Styled";
+import TagsCategorisPost from './TagsCategorisPost';
 import UploadImagePost from './UploadImagePost';
 const modules = {
     toolbar: [
@@ -48,21 +49,17 @@ export default function PostCreation() {
                 <WrapperInputTitle>
                     <p>Tiêu đề</p>
                     <Input
-                        placeholder="Nhập vào tiêu đề bài viết ..."
                         size="large"
+                        placeholder="Nhập vào tiêu đề bài viết ..."
                     />
                 </WrapperInputTitle>
 
                 <SpacingStyled />
 
-                <UploadImagePost
-                    handleSetAvatarUser={handleSetAvatarUser}
-                    setMediaID={setMediaID}
-                />
+                <TagsCategorisPost />
 
                 <SpacingStyled />
-
-                <ReactQuill
+                 <ReactQuill
                     theme="snow"
                     placeholder="Soạn bài viết ..."
                     modules={modules}
@@ -70,6 +67,14 @@ export default function PostCreation() {
                     value={textEditor}
                     onChange={handleChange}
                 />
+               
+                <SpacingStyled />
+
+                <UploadImagePost
+                    handleSetAvatarUser={handleSetAvatarUser}
+                    setMediaID={setMediaID}
+                />
+
                 <SpacingStyled />
             </ContainerEditor>
         </WrapperPostCreation>

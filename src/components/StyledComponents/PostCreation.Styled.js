@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { Image } from "antd"
-
+import { Image, Tag } from "antd"
+const { CheckableTag } = Tag
 const size = {
  xs: "320px",
  sm: "768px",
@@ -18,6 +18,73 @@ const size = {
     display: flex;
 }
  */
+
+export const CheckableTagStyled = styled(CheckableTag)`
+    font-size: 14px;
+    border: 2px solid #d9d9d9;
+    background: #fafafa;
+    color: #8f8f8f;
+    padding: 2px 4px;
+    font-weight: 400;
+    border-radius: 8px;
+    transition: all 0.1s;
+    span.anticon  {
+         vertical-align: middle;
+        font-size: 14px;
+        margin-bottom: 2px;
+    }
+    &.ant-tag-checkable:hover {
+        color: #8f8f8f;
+        
+    }
+
+     &.ant-tag-checkable:active {
+         background-color: unset;
+     }
+    &.ant-tag-checkable-checked {
+        color: #52c41a;
+        background: #f6ffed;
+        border-color: #b7eb8f;
+        &:hover {
+            color: #52c41a;
+        }
+    }
+`
+
+export const WrapperCategoriesTags = styled.div` 
+    display: flex;
+
+    .item {
+        border: 2px solid #ececec;
+        border-radius: 10px;
+        overflow: hidden;
+        flex: 1;
+        p.title {
+            border: unset;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+            background-color: #ececec;
+            box-sizing: border-box;
+            padding: 8px 12px;
+            color: #3c3c3c;
+            font-weight: 600;
+            margin-bottom: 0;
+        }
+
+        &.categories {
+            margin-right: 14px;
+
+        }
+        &.tags {
+            margin-left: 14px;
+        }
+
+        div {
+            padding: 6px;
+        }
+    }
+
+`
 
 export const SpacingStyled = styled.div` 
     margin-top: 20px;
@@ -47,7 +114,7 @@ export const WrapperImagePost = styled.div`
         color: #3c3c3c;
         position: relative;
         p {
-            font-weight: 400;
+            font-weight: 600;
             margin-bottom: 0;
         }
 
@@ -98,7 +165,7 @@ export const WrapperInputTitle = styled.div`
         box-sizing: border-box;
         padding: 8px 12px;
         color: #3c3c3c;
-        font-weight: 400;
+        font-weight: 600;
         margin-bottom: 0;
     }
     
