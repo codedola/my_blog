@@ -33,7 +33,8 @@ export default function HeaderMenus() {
     }
   }
  
-  const avatarCurrUser = createDefaultAvatar(currentUser?.id,  currentUser?.simple_local_avatar?.full)
+  const avatarCurrUser = createDefaultAvatar(
+    currentUser?.id, currentUser?.simple_local_avatar?.full)
 
 
   return (
@@ -60,12 +61,10 @@ export default function HeaderMenus() {
                     />
                         <span>{currentUser.nickname}</span>
                   </Link>
-                  {
-                    !isDashboard ?
-                      <ul>
-                        <li><Link to="/" onClick={handleLogout}>Logout</Link></li>
-                    </ul> : null
-                  }
+                  <ul>
+                    <li><Link to="/post-creation">Create post</Link></li>
+                    <li><Link to="/" onClick={handleLogout}>Logout</Link></li>
+                  </ul>
                 </li>
               )
           }

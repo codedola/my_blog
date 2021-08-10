@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import ChangePasswordForm from "../ChangePasswordForm"
 import UserProfile from "../UserProfile"
 import UsersTable from '../UsersTable';
-
+import PostCreation from '../PostCreation';
 //
 export default function DashboardTopic() {
     const { topicTitle } = useParams();
@@ -16,6 +16,10 @@ export default function DashboardTopic() {
         }
         case "users": {
             return <UsersTable />
+        }
+            
+        case "post-creation": {
+            return <PostCreation />
         }
         case "change-password": {
             return (

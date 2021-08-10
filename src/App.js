@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Switch, Route } from "react-router-dom";
-import Footer from "./components/Footer";
+// import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Homepage from './pages/Homepage';
 import PostsCategory from './pages/PostsCategory';
@@ -14,7 +14,7 @@ import PostTag from "./pages/PostTag";
 import Dashboard from "./pages/Dashboard";
 import PageNotExit from "./pages/PageNotExit";
 // 
-import { useRouteMatch } from 'react-router-dom'
+// import { useRouteMatch } from 'react-router-dom'
 import { actFetchCategoriesAsync } from "./store/categories/actions";
 import { actFetchMenusAsync } from "./store/menus/actions";
 import { actCheckLoginAsync } from "./store/auth/actions";
@@ -23,7 +23,7 @@ import { activateLang } from "./i18n";
 
 function App() {
   const dispatch = useDispatch();
-  const isDashboard = useRouteMatch('/dashboard');
+  // const isDashboard = useRouteMatch('/dashboard');
   const lang = useSelector(state => state.App.lang)
 
   useEffect(() => {
@@ -74,7 +74,6 @@ function App() {
         <Route path="/change-password" exact>
           <ChangePassword />
         </Route>
-
         <Route path="/dashboard">
           <Dashboard />
         </Route>
@@ -89,12 +88,12 @@ function App() {
         </Route>
 
       </Switch>
-      {
+      {/* {
         !isDashboard && <div className="spacing" />
-      }
+      } */}
       
       
-      { !isDashboard && <Footer /> }
+      {/* { !isDashboard && <Footer /> } */}
     </div>
   )
 }

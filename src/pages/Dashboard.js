@@ -4,7 +4,7 @@ import {  useRouteMatch, Switch, Route, Link } from "react-router-dom";
 import { Row, Col, Layout, Menu, Button} from 'antd';
 import {
     LogoutOutlined, IdcardOutlined,
-    FormOutlined, GlobalOutlined,
+    FormOutlined, GlobalOutlined, PlusCircleOutlined,
     FileDoneOutlined, ArrowLeftOutlined, UserAddOutlined,
     ArrowRightOutlined, UsergroupAddOutlined,BarChartOutlined 
 } from '@ant-design/icons';
@@ -72,6 +72,9 @@ export default function Dashboard() {
                         </Menu.Item>
                         <Menu.Item key="3" icon={<IdcardOutlined />}>
                             <Link to={`${url}/profile`}>Profile</Link>
+                        </Menu.Item>
+                        <Menu.Item key="9" icon={<PlusCircleOutlined />}>
+                            <Link to={`${url}/post-creation`}>New Post</Link>
                         </Menu.Item>
                         <SubMenu key="submenu_users" icon={<BarChartOutlined  />} title="Management">
                             <Menu.Item key="7" icon={<UsergroupAddOutlined />}>
