@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Image, Tag , Collapse} from "antd"
+import { Image, Tag , Collapse, Spin, Button} from "antd"
 const { CheckableTag } = Tag
 const size = {
  xs: "320px",
@@ -18,6 +18,36 @@ const size = {
     display: flex;
 }
  */
+
+export const ButtonCreation = styled(Button)` 
+    border-radius: 10px;
+    color: #3c3c3c;
+    font-size: 14px;
+    font-weight: 600;
+    border: 2px solid #ececec;
+     background-color: #ececec;
+    width: 200px;
+    transition: all 0.2s;
+    &:hover, &:active, &:focus {
+        outline: unset;
+        color: #3c3c3c;
+        font-weight: 600;
+        background-color: #cacaca;
+        border-color:  #cacaca;
+    }
+`
+
+export const SpinStyled = styled(Spin)`
+    span.ant-spin-dot {
+        position: fixed;
+        font-size: 50px;
+        i.ant-spin-dot-item {
+            width: 20px;
+            height: 20px;
+            background-color: #4b4b4b;
+        }
+    }
+`
 export const CollapseStyled = styled(Collapse)`
     display: flex;
     border: unset;

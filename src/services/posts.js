@@ -42,4 +42,14 @@ export const PostService = {
       slug
     })
   },
+  createNewPost({
+    title, content, featured_media, categories = [], tags = [],
+    status = "publish", lang = "vi", sticky = false, comment_status="open", ...restParams
+  }) {
+    return api.callWithToken().post("/wp/v2/posts", {
+      title, content, featured_media, categories, tags,
+      status, lang, sticky, comment_status, ...restParams
+    })
+  }
 }
+

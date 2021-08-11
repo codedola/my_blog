@@ -62,7 +62,6 @@ export default function HeaderMenus() {
                         <span>{currentUser.nickname}</span>
                   </Link>
                   <ul>
-                    <li><Link to="/post-creation">Create post</Link></li>
                     <li><Link to="/" onClick={handleLogout}>Logout</Link></li>
                   </ul>
                 </li>

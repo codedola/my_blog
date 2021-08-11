@@ -1,13 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import 'react-quill/dist/quill.snow.css';
 import ReactQuill from 'react-quill';
 import { Input } from 'antd';
 import {
-    ContainerEditor, WrapperInputTitle,
-    WrapperPostCreation, SpacingStyled
+    ContainerEditor, WrapperInputTitle, ButtonCreation,
+    WrapperPostCreation, SpacingStyled, SpinStyled
 } from "../StyledComponents/PostCreation.Styled";
 import MenuPostCreation from './MenuPostCreation';
 import UploadImagePost from './UploadImagePost';
+import { useDispatch } from "react-redux"
+import { useHistory} from "react-router-dom"
+import { actCreateNewPostAsync } from "../../store/posts/actions"
 const modules = {
     toolbar: [
       [{'header': [1, 2, 3, false] }],
@@ -24,39 +27,86 @@ const formats = [
     'link', 'code-block'
 ]
 export default function PostCreation() {
-    const [textEditor, setTextEditor] = useState("");
+    const dispatch = useDispatch();
+    const history = useHistory()
+
     const [objFile, setObjFile] = useState(null);
     const [mediaID, setMediaID] = useState(null);
+
     const [loading, setLoading] = useState(false);
+
+    const [textTitle, setTextTitle] = useState("");
+    const [textEditor, setTextEditor] = useState("");
+
+    const [selectedTags, setSelectedTags] = useState([]);
+    const [selectedCategories, setSelectedCategories] = useState([])
+    
     
 
     //
     const handleChange = (value, delta, source, editor) => {
-        console.log(value)
-        console.log(delta)
-        console.log(source)
-        console.log(editor)
         setTextEditor(value)
     }
 
     const handleSetAvatarUser = (objFileAvatar) => {
         setObjFile(objFileAvatar)
     }
+
+    const handleSetTextTitle = (e) => {
+        setTextTitle(e.target.value)
+    }
+
+    const handleCreateNewPost = () => {
+        let media = objFile || mediaID;
+        setLoading(true);
+        dispatch(actCreateNewPostAsync({
+            title: textTitle,
+            content: textEditor,
+            categories: selectedCategories,
+            tags: selectedTags,
+            featured_media: media
+        }))
+            .then(function (res) {
+                setLoading(false);
+                if (res.ok) {
+                    history.push(`/post/${res?.post?.slug}`)
+                }
+            })
+    }
+    
+    const showDisableButton = useMemo(function () {
+        let media = Boolean(objFile || mediaID);
+        if (media && textTitle !== "" && textEditor !== "") {
+            return false;
+        }
+        return true;
+    }, [objFile, mediaID, textTitle, textEditor ])
+
+
     return (
         <WrapperPostCreation>
+            <SpinStyled spinning={loading}>
+
             <ContainerEditor>
 
                 <WrapperInputTitle>
                     <p>Tiêu đề</p>
                     <Input
                         size="large"
+                        value={textTitle}
+                        onChange={handleSetTextTitle}
                         placeholder="Nhập vào tiêu đề bài viết ..."
                     />
                 </WrapperInputTitle>
 
                 <SpacingStyled />
 
-                <MenuPostCreation />
+                <MenuPostCreation
+                    selectedTags={selectedTags}
+                    selectedCategories={selectedCategories}
+                    setSelectedTags={setSelectedTags}
+                    setSelectedCategories={setSelectedCategories}
+                />
 
                 <SpacingStyled />
                  <ReactQuill
@@ -71,12 +121,23 @@ export default function PostCreation() {
                 <SpacingStyled />
 
                 <UploadImagePost
-                    handleSetAvatarUser={handleSetAvatarUser}
+                    handleSetAvatarUser={handleSetAvatarUser} // setObj file
                     setMediaID={setMediaID}
                 />
-
                 <SpacingStyled />
-            </ContainerEditor>
+
+                <div style={{textAlign: "center"}}>
+                        <ButtonCreation
+                         disabled = {showDisableButton}
+                        type="default" size="large" 
+                        loading={false} onClick={handleCreateNewPost}
+                    >
+                        Tạo bài viết
+                    </ButtonCreation>
+                </div>
+                
+                </ContainerEditor>
+                </SpinStyled>
         </WrapperPostCreation>
        
     )

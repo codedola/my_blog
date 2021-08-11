@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useSelector } from "react-redux"
 import { Collapse } from 'antd';
 import MenuItemPostCreation from './MenuItemPostCreation';
 import {CollapseStyled} from "../StyledComponents/PostCreation.Styled"
 const { Panel } = Collapse;
 
-export default function MenuPostCreation() {
-    const [selectedTags, setSelectedTags] = useState([]);
-    const [selectedCategories, setSelectedCategories] = useState([])
-
+export default function MenuPostCreation({
+    selectedTags, setSelectedTags, selectedCategories, setSelectedCategories
+}) {
+   
     const listTags = useSelector(state => Object.values(state.Tag.listTags));
     const listCategories = useSelector(state =>
         Object.values(state.Categories.hashCategoriesFromId)

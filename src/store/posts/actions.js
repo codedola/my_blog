@@ -1,4 +1,5 @@
 import { PostService } from "../../services/posts";
+import { MediaServices } from "../../services/media"
 import { actFetchCommentsAsync } from '../comments/actions';
 
 export const ACT_FETCH_LATEST_POSTS = 'ACT_FETCH_LATEST_POSTS';
@@ -227,6 +228,56 @@ export function actFetchPostCurrentUserAsync({ page = 1, per_page = 4, author} =
         }
       }
 
+    } catch (error) {
+      return {
+        ok: false,
+        error
+      }
+    }
+  }
+}
+
+// Create New Post Action Async
+
+export function actCreateNewPostAsync({
+  title, content, featured_media, categories, tags, ...restParams
+}) {
+  return async function (dispatch) {
+    try {
+      // featured_media object or number
+      let responseNewPost = null;
+      if (featured_media !== null && typeof featured_media === "object") {
+        const formMedia = new FormData();
+        formMedia.append('file', featured_media);
+
+        const resMedia = await MediaServices.UploadMedia(formMedia);
+
+        if (resMedia.status === 201) {
+          const media_id = resMedia.data.id;
+          
+          responseNewPost = await PostService.createNewPost({
+            title, content, featured_media: media_id, categories, tags, ...restParams
+          })
+
+        }
+      }
+
+      responseNewPost = await PostService.createNewPost({
+        title, content, featured_media, categories, tags, ...restParams
+      })
+
+      console.log("responseNewPost", responseNewPost)
+
+      if (responseNewPost.status === 201) {
+        return {
+          ok: true,
+          post: responseNewPost.data
+        }
+      } else {
+        return {
+          ok: false
+        }
+      }
     } catch (error) {
       return {
         ok: false,

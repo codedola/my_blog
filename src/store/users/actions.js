@@ -255,7 +255,6 @@ export function actEditUserProfileAsync({
   return async function (dispatch) {
     try {
       let responseEditUser = null;
-      console.log("media_id trong aync", media_id)
       if (media_id !== null && typeof media_id === "object") {
         const formMedia = new FormData();
         formMedia.append('file', media_id);
