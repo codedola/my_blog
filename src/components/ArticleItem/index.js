@@ -27,7 +27,7 @@ export default function ArticleItem({
     return null;
   }
 
-  const title = post.title.rendered;
+  const title = post.title?.rendered;
   const slugLink = PATHS.POST_DETAIL.replace(":slug", post.slug)
   const thumbnail = post.featured_media_url;
 

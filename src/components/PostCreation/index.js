@@ -6,7 +6,7 @@ import {
     ContainerEditor, WrapperInputTitle,
     WrapperPostCreation, SpacingStyled
 } from "../StyledComponents/PostCreation.Styled";
-import TagsCategorisPost from './TagsCategorisPost';
+import MenuPostCreation from './MenuPostCreation';
 import UploadImagePost from './UploadImagePost';
 const modules = {
     toolbar: [
@@ -56,7 +56,7 @@ export default function PostCreation() {
 
                 <SpacingStyled />
 
-                <TagsCategorisPost />
+                <MenuPostCreation />
 
                 <SpacingStyled />
                  <ReactQuill

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Image, Tag } from "antd"
+import { Image, Tag , Collapse} from "antd"
 const { CheckableTag } = Tag
 const size = {
  xs: "320px",
@@ -18,20 +18,85 @@ const size = {
     display: flex;
 }
  */
+export const CollapseStyled = styled(Collapse)`
+    display: flex;
+    border: unset;
+    border-radius: unset;
+    background-color: white;
+    transition: all 0.2s;
+    & > .ant-collapse-item:last-child, & > .ant-collapse-item:last-child > .ant-collapse-header {
+        border-radius: 0 0 10px 10px;
+    }
+
+    & > .ant-collapse-item-active:last-child, & > .ant-collapse-item-active:last-child > .ant-collapse-header {
+        border-radius: 0;
+    }
+    & > .ant-collapse-item > .ant-collapse-header {
+        border-radius: 0 0 10px 10px;
+    }
+     & > .ant-collapse-item-active > .ant-collapse-header {
+        border-radius: 0 0 0 0;
+    }
+
+    .ant-collapse-item, .ant-collapse-item:last-child {
+        flex: 1;
+        overflow: hidden;
+        border-bottom: unset;
+        border-radius: 10px;
+        border: 2px solid transparent;
+        overflow: hidden;
+        transition: all 0.2s;
+        .ant-collapse-header {
+            background-color: #ececec;
+            font-size: 14px;
+            font-weight: 600;
+            color: #3c3c3c;
+            .anticon {
+                vertical-align: middle;
+                font-size: 12px;
+                height: 16px;
+            }
+        }
+        .ant-collapse-content {
+            border: unset;
+        }
+        &.ant-collapse-item-active.categories {
+            border-color: #ececec;
+            
+        }
+        &.ant-collapse-item-active.tags {
+            border-color: #ececec;
+        }
+
+        &.categories {
+            margin-right: 14px;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+        &.tags {
+            margin-left: 14px;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+        
+    }
+    
+`
+
 
 export const CheckableTagStyled = styled(CheckableTag)`
     font-size: 14px;
     border: 2px solid #d9d9d9;
     background: #fafafa;
     color: #8f8f8f;
-    padding: 2px 4px;
+    /* padding: 2px 4px; */
     font-weight: 400;
     border-radius: 8px;
     transition: all 0.1s;
     span.anticon  {
-         vertical-align: middle;
+        vertical-align: middle;
         font-size: 14px;
-        margin-bottom: 2px;
+        margin-bottom: 3px;
     }
     &.ant-tag-checkable:hover {
         color: #8f8f8f;
