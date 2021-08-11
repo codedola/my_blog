@@ -24,16 +24,18 @@ export const ButtonCreation = styled(Button)`
     color: #3c3c3c;
     font-size: 14px;
     font-weight: 600;
-    border: 2px solid #ececec;
-     background-color: #ececec;
+    border: unset;
+    box-shadow: rgb(60 64 67 / 10%) 0px 1px 2px 0px, rgb(60 64 67 / 15%) 0px 2px 6px 2px;
+    /* border: 2px solid #ececec; */
+    background-color: #ececec;
     width: 200px;
     transition: all 0.2s;
     &:hover, &:active, &:focus {
         outline: unset;
         color: #3c3c3c;
         font-weight: 600;
-        background-color: #cacaca;
-        border-color:  #cacaca;
+        background-color: #dbdbdb;
+        /* border-color:  #cacaca; */
     }
 `
 
@@ -277,7 +279,7 @@ export const WrapperInputTitle = styled.div`
 
 
 export const ContainerEditor = styled.div`
-    width: 80%;
+    width: ${props => props.widthEditor ? props.widthEditor : "80%"};
     height: 100%;
     margin: 0 auto;
      padding: 4px;

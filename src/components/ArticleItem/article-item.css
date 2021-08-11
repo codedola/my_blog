@@ -286,12 +286,76 @@
   @media screen and (min-width: 640px) {
     .article-item {
       background-color: transparent; } }
+
+
 /* card-dashboard */
 
 .card-dashboard {
-  height: 150px;
+  max-height: 160px;
+  border: unset;
+  border-radius: 4px;
+}
+.card-dashboard .article-item__thumbnail {
+  border-radius: 4px;
+  box-shadow: unset !important;
+}
+.card-dashboard .article-item__thumbnail img{
+  object-fit: fill;
 }
 
+.card-dashboard .article-item__content {
+  padding-left: 16px;
+}
+.card-dashboard .article-item__content .edit_post {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  transition: all 0.2s;
+  padding: 4px 10px;
+}
+.card-dashboard .article-item__content .edit_post .anticon {
+  vertical-align: inherit;
+  font-size: 18px;
+  color: gray;
+}
 .card-dashboard .article-item__content .article-item__title a {
   font-size: 16px;
+}
+
+.card-dashboard .article-item__content .edit_post .ant-dropdown {
+  min-width: 160px;
+  width: 152px;
+  border-radius: 8px;
+  border: unset;
+  overflow: hidden;
+  transition: all 0.2s;
+  box-shadow: rgb(60 64 67 / 10%) 0px 1px 2px 0px, rgb(60 64 67 / 8%) 0px 2px 6px 2px;
+
+}
+.card-dashboard .article-item__content .edit_post 
+.ant-dropdown .ant-dropdown-menu {
+  padding: 6px 8px;
+}
+
+.card-dashboard .article-item__content .edit_post .ant-dropdown 
+.ant-dropdown-menu .ant-dropdown-menu-item {
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  /* color: #808080c9; */
+}
+
+.card-dashboard .article-item__content .edit_post .ant-dropdown 
+.ant-dropdown-menu .ant-dropdown-menu-item.edit:hover {
+    color: #fa8c16;
+    background: #fff7e6;
+    border-color: #ffd591;
+}
+
+.card-dashboard .article-item__content .edit_post .ant-dropdown 
+.ant-dropdown-menu .ant-dropdown-menu-item.delete:hover {
+   color: #f5222d;
+    background: #fff1f0;
+    border-color: #ffa39e;
 }

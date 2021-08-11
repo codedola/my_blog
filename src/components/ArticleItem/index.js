@@ -1,3 +1,4 @@
+import React from "react"
 import './article-item.css';
 import cls from 'classnames';
 import { PATHS} from "../../constants";
@@ -7,7 +8,7 @@ import ArticleItemTitle from './ArticleItemTitle';
 import ArticleItemInfo from './ArticleItemInfo';
 import ArticleItemCategories from './ArticleItemCategories';
 import ArticleItemStats from './ArticleItemStats';
-
+import ArticleTools from "./ArticleTools";
 export default function ArticleItem({
   isStyleRow = false,
   isStyleCard = false,
@@ -42,7 +43,8 @@ export default function ArticleItem({
   const shortDesc = post.excerpt.rendered
   const viewCount = post.view_count;
   const categoriesId = post.categories;
-
+  
+  
 
   return (
     <article className={classes} style={{
@@ -74,6 +76,11 @@ export default function ArticleItem({
           authorLink={authorLink}
           authorAvatar={authorAvatar}
         />
+
+        {
+          isDashboard ?
+            <ArticleTools post={post} /> : null
+        }
       </div>
 
     </article>

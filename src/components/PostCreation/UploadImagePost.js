@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react'
+import React, {useState, useRef, useEffect} from 'react'
 import { List} from "antd"
 import { UploadOutlined } from "@ant-design/icons"
 import MediaModal from "../UserProfile/MediaModal"
@@ -7,12 +7,17 @@ import { ModalStyled } from "../StyledComponents/UserProfileAvatar.styled"
 import { WrapperImagePost, ImagePostStyled } from "../StyledComponents/PostCreation.Styled"
 
 //
-export default function UploadImagePost({ handleSetAvatarUser, setMediaID}) {
+export default function UploadImagePost({ handleSetAvatarUser, setMediaID, mediaURL}) {
     const [urlPreview, setUrlPreview] = useState(null);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [isModalLibrary, setIsModalLibrary] = useState(false);
     const inputFile = useRef(null);
 
+    useEffect(function () {
+        if (mediaURL) {
+            setUrlPreview(mediaURL);
+        }
+    }, [mediaURL])
 
     const handleCancel = () => {
         setIsModalVisible(false);

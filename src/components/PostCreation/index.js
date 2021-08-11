@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import 'react-quill/dist/quill.snow.css';
 import ReactQuill from 'react-quill';
 import { Input } from 'antd';
@@ -26,7 +26,9 @@ const formats = [
     'list', 'bullet', 'indent',
     'link', 'code-block'
 ]
-export default function PostCreation() {
+export default function PostCreation({
+    widthEditor="80%", textButton = "Tạo bài viết", post = null
+}) {
     const dispatch = useDispatch();
     const history = useHistory()
 
@@ -41,8 +43,17 @@ export default function PostCreation() {
     const [selectedTags, setSelectedTags] = useState([]);
     const [selectedCategories, setSelectedCategories] = useState([])
     
-    
-
+    // setState for post !== null
+    useEffect(function () {
+        if (post !== null) {
+            console.log("post  data in post creation", post)
+            setTextTitle(post.title.rendered);
+            setTextEditor(post.content.rendered);
+            setSelectedCategories(post.categories);
+            setSelectedTags(post.tags);
+            setMediaID(post.featured_media);
+        }
+    }, [post])
     //
     const handleChange = (value, delta, source, editor) => {
         setTextEditor(value)
@@ -87,7 +98,7 @@ export default function PostCreation() {
         <WrapperPostCreation>
             <SpinStyled spinning={loading}>
 
-            <ContainerEditor>
+            <ContainerEditor widthEditor={widthEditor}>
 
                 <WrapperInputTitle>
                     <p>Tiêu đề</p>
@@ -122,7 +133,8 @@ export default function PostCreation() {
 
                 <UploadImagePost
                     handleSetAvatarUser={handleSetAvatarUser} // setObj file
-                    setMediaID={setMediaID}
+                        setMediaID={setMediaID}
+                        mediaURL = {post ? post.featured_media_url : null}
                 />
                 <SpacingStyled />
 
@@ -132,7 +144,7 @@ export default function PostCreation() {
                         type="default" size="large" 
                         loading={false} onClick={handleCreateNewPost}
                     >
-                        Tạo bài viết
+                        {textButton}
                     </ButtonCreation>
                 </div>
                 

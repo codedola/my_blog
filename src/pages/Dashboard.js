@@ -109,7 +109,8 @@ export default function Dashboard() {
                 >
                     <Switch>
                         <Route exact path={path} >
-                          <ArticlesCurrentUser authorID={currentUser.id} />
+                            <ArticlesCurrentUser authorID={currentUser.id} />
+                         
                         </Route>
                         <Route
                             path={`${path}/:topicTitle`}

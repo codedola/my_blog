@@ -10,9 +10,9 @@
 
 .related-post__card {
   padding: 1rem;
-  border-radius: 1rem;
+  border-radius: 4px;
   background-color: #fff;
-  border-left: 5px solid #a3bffa;
+  border-left: 5px solid #60c065;
   box-shadow: 1px 1px 5px 0 rgba(1, 1, 1, 0.05); }
 
 .related-post__card + .related-post__card {

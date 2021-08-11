@@ -12,12 +12,12 @@ import {genKeyUserPost } from "../../store/posts/reducer"
 function handleMap( loading = false) {
   return function (post) {
     return (
-    <Col md={6} key={post.id}>
-      {
-        !loading ? <ArticleItem isStyleCard isShowAvatar={false} post={post} isDashboard={true} />
-          : <ArticleItemSkeleton isStyleCard isShowAvatar={false} isDashboard={true} />
-      }
-    </Col>
+      <Col md={6} key={post.id}>
+        {
+          !loading ? <ArticleItem isStyleCard isShowAvatar={false} post={post} isDashboard={true} />
+            : <ArticleItemSkeleton isStyleCard isShowAvatar={false} isDashboard={true} />
+        }
+      </Col>
   )
   }
 }
