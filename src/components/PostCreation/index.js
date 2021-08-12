@@ -60,14 +60,13 @@ export default function PostCreation({
     
 
     const handleChange = (value, delta, source, editor) => {
-        setTextEditor(value)
+        setTextEditor(value);
+
         delta.forEach(function (data) {
             const retainIndex = data?.retain;
             if (data.insert && data.insert["image"]) {
-                console.log("data?.insert", data?.insert["image"])
                 if (data?.insert["image"].includes("base64")) {
                     const file = Base64ToObjectFile(data?.insert["image"], "imageblog");
-                    
                     const isCorrectImg = CheckImgBeforeUpload(file, "KB")
                     if (!isCorrectImg) {
                         delta?.retain(retainIndex)?.delete(1);
@@ -75,8 +74,8 @@ export default function PostCreation({
                     }
                 }
             }
-           
        })
+        
         
     }
 
