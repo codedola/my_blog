@@ -200,7 +200,7 @@ export function actFetchPostsRelatedAsync({page = 1, per_page = 3, author, exclu
       page,
       total,
       totalPages */
-export function actFetchPostCurrentUserAsync({ page = 1, per_page = 4, author} = {}) {
+export function actFetchPostCurrentUserAsync({ page = 1, per_page = 6, author} = {}) {
   return async function (dispatch) {
     try {
       const response = await PostService.getList({ page, per_page, author });
@@ -266,7 +266,6 @@ export function actCreateNewPostAsync({
         title, content, featured_media, categories, tags, ...restParams
       })
 
-      console.log("responseNewPost", responseNewPost)
 
       if (responseNewPost.status === 201) {
         return {
@@ -283,6 +282,81 @@ export function actCreateNewPostAsync({
         ok: false,
         error
       }
+    }
+  }
+}
+
+
+// Edit Post Action Async
+export function actEditPostAsync({
+  id, title, content, featured_media, categories, tags, ...restParams
+}) {
+  return async function (dispatch) {
+    try {
+      // featured_media object or number
+      let responseEditPost = null;
+      if (featured_media !== null && typeof featured_media === "object") {
+        const formMedia = new FormData();
+        formMedia.append('file', featured_media);
+
+        const resMedia = await MediaServices.UploadMedia(formMedia);
+
+        if (resMedia.status === 201) {
+          const media_id = resMedia.data.id;
+          
+          responseEditPost = await PostService.EditPost({
+            id, title, content, featured_media: media_id, categories, tags, ...restParams
+          })
+
+        }
+      }
+
+      console.log("truoc khi call")
+      responseEditPost = await PostService.EditPost({
+        id, title, content, featured_media, categories, tags, ...restParams
+      })
+console.log("sau khi call")
+   
+      console.log("edit post", responseEditPost)
+
+      if (responseEditPost.status === 200) {
+        return {
+          ok: true,
+          post: responseEditPost.data
+        }
+      } 
+    } catch (error) {
+      return {
+        ok: false,
+        error
+      }
+    }
+  }
+}
+
+export function actDeletePostAsync(id) {
+  return async function (dispatch) {
+    try {
+      const response = await PostService.DeletePost(id);
+      console.log("response delete", response)
+
+      if (response.status === 200) {
+        await dispatch(actFetchPostCurrentUserAsync({
+          author: response.data.author
+        }))
+        return {
+          ok: true
+        }
+      } else {
+        return {
+          ok: false
+        }
+      }
+
+    } catch (error) {
+        return {
+            ok: false, error
+        }
     }
   }
 }

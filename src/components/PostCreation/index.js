@@ -11,12 +11,15 @@ import UploadImagePost from './UploadImagePost';
 import { useDispatch } from "react-redux"
 import { useHistory} from "react-router-dom"
 import { actCreateNewPostAsync } from "../../store/posts/actions"
+import Notification from '../shared/Notification';
+import Base64ToObjectFile from "../shared/Base64toObjectFile"
+import CheckImgBeforeUpload from '../shared/CheckImgBeforeUpload';
 const modules = {
     toolbar: [
       [{'header': [1, 2, 3, false] }],
       ['bold', 'italic', 'underline','strike', 'blockquote'],
       [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
-      ['link', 'code-block'],
+      ['link','image', 'code-block'],
     ],
 }
 
@@ -24,10 +27,10 @@ const formats = [
     'header',
     'bold', 'italic', 'underline', 'strike', 'blockquote', 
     'list', 'bullet', 'indent',
-    'link', 'code-block'
+    'link', 'code-block', 'image'
 ]
 export default function PostCreation({
-    widthEditor="80%", textButton = "Tạo bài viết", post = null
+    widthEditor="80%", textButton = "Tạo bài viết", post = null, handleEditPost = null
 }) {
     const dispatch = useDispatch();
     const history = useHistory()
@@ -46,7 +49,6 @@ export default function PostCreation({
     // setState for post !== null
     useEffect(function () {
         if (post !== null) {
-            console.log("post  data in post creation", post)
             setTextTitle(post.title.rendered);
             setTextEditor(post.content.rendered);
             setSelectedCategories(post.categories);
@@ -55,8 +57,23 @@ export default function PostCreation({
         }
     }, [post])
     //
+    
+
     const handleChange = (value, delta, source, editor) => {
         setTextEditor(value)
+        delta.forEach(function (data) {
+            const retainIndex = data?.retain
+            if (data.insert && data.insert["image"]) {
+                const file = Base64ToObjectFile(data.insert["image"], "imageVatiled");
+                const isCorrectImg = CheckImgBeforeUpload(file, "KB")
+                if (!isCorrectImg) {
+                    delta?.retain(retainIndex)?.delete(1);
+                    setTextEditor(textEditor?.replace(`<img src=${data.insert["image"]}>`, ""))
+                }
+            }
+           
+       })
+        
     }
 
     const handleSetAvatarUser = (objFileAvatar) => {
@@ -67,23 +84,50 @@ export default function PostCreation({
         setTextTitle(e.target.value)
     }
 
-    const handleCreateNewPost = () => {
+    const handleOnChangePost = () => {
         let media = objFile || mediaID;
-        setLoading(true);
-        dispatch(actCreateNewPostAsync({
-            title: textTitle,
-            content: textEditor,
-            categories: selectedCategories,
-            tags: selectedTags,
-            featured_media: media
-        }))
-            .then(function (res) {
-                setLoading(false);
-                if (res.ok) {
-                    history.push(`/post/${res?.post?.slug}`)
-                }
+        
+        if (post && typeof handleEditPost === "function") {
+            setLoading(true);
+            handleEditPost({
+                title: textTitle,
+                content: textEditor,
+                categories: selectedCategories,
+                tags: selectedTags,
+                featured_media: media
+            }).then(function (res) {
+                    setLoading(false);
+                    if (res.ok) {
+                        history.push(`/post/${res?.post?.slug}`)
+                    } else {
+                        Notification({
+                            type: "error",
+                            placement: "topRight",
+                            message: "Lỗi hình ảnh",
+                            duration: 4,
+                            description: "Hình trong văn bản phải nhỏ hơn 200KB"
+                        })
+                    }
             })
+    
+        } else {
+            setLoading(true);
+            dispatch(actCreateNewPostAsync({
+                title: textTitle,
+                content: textEditor,
+                categories: selectedCategories,
+                tags: selectedTags,
+                featured_media: media
+            }))
+                .then(function (res) {
+                    setLoading(false);
+                    if (res.ok) {
+                        history.push(`/post/${res?.post?.slug}`)
+                    }
+                })
+        }
     }
+
     
     const showDisableButton = useMemo(function () {
         let media = Boolean(objFile || mediaID);
@@ -142,7 +186,7 @@ export default function PostCreation({
                         <ButtonCreation
                          disabled = {showDisableButton}
                         type="default" size="large" 
-                        loading={false} onClick={handleCreateNewPost}
+                        loading={false} onClick={handleOnChangePost}
                     >
                         {textButton}
                     </ButtonCreation>

@@ -13,7 +13,7 @@ function PostDetailContent() {
   return (
     <div className="post-detail__content">
       <div className="thumbnail">
-        <img src={post.featured_media_url} alt={post.title.rendered} />
+        <img src={post.featured_media_url ? post.featured_media_url : "false" } alt={post.title.rendered} />
       </div>
       <div className="content-padding">
         

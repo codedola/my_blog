@@ -1,5 +1,7 @@
 import React from 'react'
 import { useSelector } from "react-redux"
+import { v4 as uuidv4 } from 'uuid';
+
 import { Collapse } from 'antd';
 import MenuItemPostCreation from './MenuItemPostCreation';
 import {CollapseStyled} from "../StyledComponents/PostCreation.Styled"
@@ -24,7 +26,7 @@ export default function MenuPostCreation({
         <CollapseStyled>
             <Panel header="Categories" key="1" className="categories">
                 <MenuItemPostCreation
-                    key={1}
+                    key={uuidv4()}
                     keyField="category"
                     listItem={listCategories}
                     classNameItem="categories"
@@ -34,7 +36,7 @@ export default function MenuPostCreation({
             </Panel>
             <Panel header="Tags" key="2" className="tags">
                 <MenuItemPostCreation
-                    key={2}
+                    key={uuidv4()}
                     keyField="tag"
                     listItem={listTags}
                     classNameItem="tags"

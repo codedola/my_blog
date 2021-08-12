@@ -41,7 +41,7 @@ export const ButtonCreation = styled(Button)`
 
 export const SpinStyled = styled(Spin)`
     span.ant-spin-dot {
-        position: fixed;
+        position: fixed !important;
         font-size: 50px;
         i.ant-spin-dot-item {
             width: 20px;

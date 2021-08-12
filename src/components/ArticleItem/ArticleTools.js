@@ -1,11 +1,23 @@
 import React, {useState} from 'react'
-import { Menu, Dropdown } from 'antd';
+import { Menu, Dropdown, List } from 'antd';
 import { EditOutlined } from "@ant-design/icons"
-import PostCreation from "../PostCreation"
-import { ModalPostEdit } from "../StyledComponents/PostCard.Styled"
+import PostEditModal from "../PostEditModal"
+import { ModalStyled } from "../StyledComponents/UserProfileAvatar.styled"
+import { useDispatch } from "react-redux"
+import { actDeletePostAsync } from "../../store/posts/actions"
+import Notification from '../shared/Notification';
 //
 export default function ArticleTools({ post }) {
+    const dispatch = useDispatch()
+    const [isModalDelete, setIsModalDelete] = useState(false)
     const [isModalVisible, setIsModalVisible] = useState(false)
+
+    function onCancelModalDelete() {
+        setIsModalDelete(false)
+    }
+    function onShowModalDelete() {
+        setIsModalDelete(true)
+    }
     const menu = (
         <Menu>
             <Menu.Item
@@ -14,10 +26,14 @@ export default function ArticleTools({ post }) {
                 style={{ color: "#fa8c16" }}
                 onClick={onShowEditPost}
             >
-                Edit
+                Chỉnh sửa
             </Menu.Item>
-            <Menu.Item key={"delete"} className="delete" style={{color: "#f5222d"}}>
-                Delete
+            <Menu.Item
+                key={"delete"}
+                className="delete"
+                onClick={onShowModalDelete}
+                style={{ color: "#f5222d" }}>
+                xóa
             </Menu.Item>
         </Menu>
     )
@@ -30,6 +46,29 @@ export default function ArticleTools({ post }) {
         setIsModalVisible(false);
     }
 
+    function handleDeletePost() {
+        onCancelModalDelete()
+        if (post) {
+            dispatch(actDeletePostAsync(post.id))
+                .then(function (res) {
+                if (res.ok) {
+                    Notification({
+                        type: "success",
+                        placement: "bottomRight",
+                        message: "Xóa bài viết thành công"
+                    })
+                } else {
+                    Notification({
+                        type: "error",
+                        placement: "bottomRight",
+                        message: "Xóa bài viết thất bại"
+                    })
+                }
+            })
+        }
+    }
+
+
     return (
         <>
         <div className={`edit_post post${post?.id}`}>
@@ -40,20 +79,38 @@ export default function ArticleTools({ post }) {
               </Dropdown>
         </div>
 
-        <ModalPostEdit
-            visible={isModalVisible}
-            onOk={onShowEditPost}
-            onCancel={onCancelEditPost}
-            width="68%" centered
+            <PostEditModal
+                isModalVisible={isModalVisible}
+                onCancelEditPost={onCancelEditPost}
+                post={post}
+            />
+
+            <ModalStyled
+                title="Xóa bài viết này ?"
+                visible={isModalDelete}
+                onCancel={onCancelModalDelete}
                 footer={null}
-                
-        >
-                <PostCreation
-                    post={post}
-                    widthEditor="100%"
-                    textButton="Chỉnh sửa bài viết"
-                />
-        </ModalPostEdit>
+                width={380}
+                closable = {false}
+            >
+                <List
+                    size="large"
+                >
+                    <List.Item
+                        className="delete"
+                        onClick={handleDeletePost}
+                    >
+                        Xóa bài viết
+                    </List.Item>
+                    <List.Item
+                        className="cancel"
+                        onClick={onCancelModalDelete}
+                    >
+                        Hủy
+                    </List.Item>
+                </List>
+            </ModalStyled>
+            
         </>
     )
 }

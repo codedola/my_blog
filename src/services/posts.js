@@ -42,6 +42,7 @@ export const PostService = {
       slug
     })
   },
+  // Create New Post
   createNewPost({
     title, content, featured_media, categories = [], tags = [],
     status = "publish", lang = "vi", sticky = false, comment_status="open", ...restParams
@@ -49,6 +50,18 @@ export const PostService = {
     return api.callWithToken().post("/wp/v2/posts", {
       title, content, featured_media, categories, tags,
       status, lang, sticky, comment_status, ...restParams
+    })
+  },
+  // Edit Post
+  EditPost({id, title, content, featured_media, categories, tags, ...restParams}) {
+    return api.callWithToken().post(`/wp/v2/posts/${id}`, {
+      title, content, featured_media, categories, tags, ...restParams
+    })
+  },
+  // Delete Post
+  DeletePost(id) {
+    return api.callWithToken().delete(`/wp/v2/posts/${id}`, {
+      force: false
     })
   }
 }
