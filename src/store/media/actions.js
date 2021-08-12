@@ -17,7 +17,6 @@ export function actGetListMediaAsync() {
     return async function (dispatch) {
         try {
             const response = await MediaServices.GetList();
-            console.log("response media = ", response)
             if (response.status === 200) {
                 return {
                     ok: true,

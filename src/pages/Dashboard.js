@@ -1,19 +1,21 @@
 import "../assets/css/user-detail.css"
 import React, { useState } from 'react';
 import {  useRouteMatch, Switch, Route, Link } from "react-router-dom";
-import { Row, Col, Layout, Menu, Button} from 'antd';
+import { Row, Col, Layout, Menu} from 'antd';
 import {
     LogoutOutlined, IdcardOutlined,
     FormOutlined, GlobalOutlined, PlusCircleOutlined,
-    FileDoneOutlined, ArrowLeftOutlined, UserAddOutlined,
-    ArrowRightOutlined, UsergroupAddOutlined,BarChartOutlined 
+    FileDoneOutlined, UserAddOutlined,
+    UsergroupAddOutlined,BarChartOutlined 
 } from '@ant-design/icons';
 import DashboardTopic from "../components/DashboardTopic";
 import { useSelector, useDispatch } from "react-redux";
 import useAuth from "../hooks/useAuth";
-import {actLogout } from "../store/auth/actions"
+import { actLogout } from "../store/auth/actions"
+import { MenuStyled} from "../components/StyledComponents/DashBoard.Styled"
 import ArticlesCurrentUser from "../components/DashboardTopic/ArticlesCurrentUser";
 import NewUser from "../components/NewUser";
+import HeaderDashBoard from "../components/HeaderDashBoard";
 const { SubMenu } = Menu;
 
 export default function Dashboard() {
@@ -43,24 +45,17 @@ export default function Dashboard() {
         setVisibleForm(false);
     }
 
+    function handleSetCollapsed() {
+        setCollapsed(!collapsed)
+    }
+
     return (
+        <>
+        <HeaderDashBoard handleSetCollapsed={ handleSetCollapsed} />
         <Layout className="user__detail">
             <Row gutter={[10, 10]} style={{ height: "100%" }}>
                 <Col md={collapsed ? 2 : 5} xs={24} className="user__detail-menu">
-                    <div className="arrow_menu">
-                        <Button
-                            type="primary"
-                            shape="round"
-                            
-                            onClick={() => setCollapsed(!collapsed)}
-                        
-                        >
-                            {!collapsed ? <ArrowLeftOutlined  /> :
-                                <ArrowRightOutlined />}
-                        </Button>
-                    </div>
-
-                    <Menu
+                    <MenuStyled
                         mode="inline"
                         theme="light"
                         selectedKeys={keySelected}
@@ -99,7 +94,7 @@ export default function Dashboard() {
                         <Menu.Item key="6" icon={<LogoutOutlined />} onClick={handleLogout} danger>
                             Đăng xuất
                         </Menu.Item> 
-                    </Menu>
+                    </MenuStyled>
                       
                 </Col>
                 <Col
@@ -125,5 +120,6 @@ export default function Dashboard() {
                 closeFormNewUser={closeFormNewUser}
             />
         </Layout>      
+        </>
     )
 }

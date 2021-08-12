@@ -291,16 +291,16 @@
 /* card-dashboard */
 
 .card-dashboard {
-  max-height: 160px;
+  max-height: 180px;
   border: unset;
-  border-radius: 4px;
+  border-radius: 2px;
 }
 .card-dashboard .article-item__thumbnail {
   border-radius: 4px;
   box-shadow: unset !important;
 }
 .card-dashboard .article-item__thumbnail img{
-  object-fit: fill;
+  object-fit: cover;
 }
 
 .card-dashboard .article-item__content {
@@ -325,8 +325,8 @@
 
 .card-dashboard .article-item__content .edit_post .ant-dropdown {
   min-width: 160px;
-  width: 152px;
-  border-radius: 8px;
+  width: 158px;
+  border-radius: 4px;
   border: unset;
   overflow: hidden;
   transition: all 0.2s;

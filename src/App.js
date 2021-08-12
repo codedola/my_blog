@@ -14,7 +14,7 @@ import PostTag from "./pages/PostTag";
 import Dashboard from "./pages/Dashboard";
 import PageNotExit from "./pages/PageNotExit";
 // 
-// import { useRouteMatch } from 'react-router-dom'
+import { useRouteMatch } from 'react-router-dom'
 import { actFetchCategoriesAsync } from "./store/categories/actions";
 import { actFetchMenusAsync } from "./store/menus/actions";
 import { actCheckLoginAsync } from "./store/auth/actions";
@@ -23,7 +23,7 @@ import { activateLang } from "./i18n";
 
 function App() {
   const dispatch = useDispatch();
-  // const isDashboard = useRouteMatch('/dashboard');
+  const isDashboard = useRouteMatch('/dashboard');
   const lang = useSelector(state => state.App.lang)
 
   useEffect(() => {
@@ -44,8 +44,8 @@ function App() {
   
   return (
     <div className="wrapper-content">
-      {/* { !isDashboard && <Header /> } */}
-      <Header />
+      { !isDashboard && <Header /> }
+
       
       <Switch>
         <Route path="/login" exact>

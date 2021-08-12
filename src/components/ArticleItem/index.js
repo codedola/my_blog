@@ -47,9 +47,7 @@ export default function ArticleItem({
   
 
   return (
-    <article className={classes} style={{
-      height: isDashboard ? "150px" : "100%"
-    }}>
+    <article className={classes} style={{height: "100%"}}>
       
       <ArticleItemThumb 
         title={title}

@@ -14,7 +14,10 @@ function handleMap( loading = false) {
     return (
       <Col md={6} key={post.id}>
         {
-          !loading ? <ArticleItem isStyleCard isShowAvatar={false} post={post} isDashboard={true} />
+          !loading ? <ArticleItem isStyleCard
+            isShowDesc={false}
+            isShowAvatar={false} post={post}
+            isDashboard={true} />
             : <ArticleItemSkeleton isStyleCard isShowAvatar={false} isDashboard={true} />
         }
       </Col>

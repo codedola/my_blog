@@ -14,7 +14,7 @@ export default function HeaderLogo() {
       <div className="header-logo">
         <HeaderTitle to="/">
           {/* <img src="/assets/images/logo.png" alt="Go to homepage" /> */}
-          ZendSoft
+          ReactSoft
         </HeaderTitle>
       </div>
     </div>

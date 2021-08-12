@@ -9,7 +9,6 @@ export default function MenuItemPostCreation({
     handleSetSelectedItems, selectedItems }) {
     
     function handleChangeItem(tag, checked) {
-        console.log(selectedItems)
         if (checked) {
             handleSetSelectedItems(keyField, [...selectedItems, tag.id])
         } else {

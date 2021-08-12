@@ -115,9 +115,18 @@ export default function TableInfo({addNewTabUser}) {
               
               { //
                 record.key === currentUserID ?
+                  <>
+                   <Tag
+                      color="blue"
+                      style={{ cursor: "pointer" }}
+                      onClick={handleClickInfo(record)}
+                    >
+                      chi tiết
+                    </Tag>
                   <Tag color="green">
                     bạn
                   </Tag>
+                  </>
                   :
                   <>
                     <Tag

@@ -1,6 +1,5 @@
 import React from 'react'
 import { useSelector } from "react-redux"
-import { v4 as uuidv4 } from 'uuid';
 
 import { Collapse } from 'antd';
 import MenuItemPostCreation from './MenuItemPostCreation';
@@ -24,9 +23,9 @@ export default function MenuPostCreation({
     
     return (
         <CollapseStyled>
-            <Panel header="Categories" key="1" className="categories">
+            <Panel header="Categories" key={"1"} className="categories">
                 <MenuItemPostCreation
-                    key={uuidv4()}
+                    key={Math.random()}
                     keyField="category"
                     listItem={listCategories}
                     classNameItem="categories"
@@ -34,9 +33,9 @@ export default function MenuPostCreation({
                     handleSetSelectedItems = {handleSetSelectedItems}
                 />
             </Panel>
-            <Panel header="Tags" key="2" className="tags">
+            <Panel header="Tags" key={"2"} className="tags">
                 <MenuItemPostCreation
-                    key={uuidv4()}
+                    key={Math.random()}
                     keyField="tag"
                     listItem={listTags}
                     classNameItem="tags"

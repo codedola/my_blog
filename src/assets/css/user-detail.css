@@ -27,9 +27,9 @@
     padding-right: 10px;
     padding-left: 10px;
 }
-.user__detail-menu .ant-menu .ant-menu-item {
-    border-radius: 8px;
-}
+/* .user__detail-menu .ant-menu .ant-menu-item {
+    border-radius: px;
+} */
 
 .ant-menu .ant-menu-item span.ant-menu-item-icon {
     vertical-align: baseline;
