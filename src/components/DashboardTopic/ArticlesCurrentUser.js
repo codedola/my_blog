@@ -8,24 +8,13 @@ import { EmptyStyled  } from "../StyledComponents/UsersTable.styled"
 import { useDispatch } from "react-redux";
 import { actFetchPostCurrentUserAsync } from "../../store/posts/actions";
 import ArticleItemSkeleton from "../ArticleItem/ArticleItemSkeleton";
-import {genKeyUserPost } from "../../store/posts/reducer"
-function handleMap( loading = false) {
-  return function (post) {
-    return (
-      <Col md={6} key={post.id}>
-        {
-          !loading ? <ArticleItem isStyleCard
-            isShowDesc={false}
-            isShowAvatar={false} post={post}
-            isDashboard={true} />
-            : <ArticleItemSkeleton isStyleCard isShowAvatar={false} isDashboard={true} />
-        }
-      </Col>
-  )
-  }
-}
+import { genKeyUserPost } from "../../store/posts/reducer"
 
-export default function ArticlesCurrentUser({authorID, isShowBg = true}) {
+
+
+export default function ArticlesCurrentUser({ authorID, isShowBg = true,
+  isShowEdit = true, isShowDesc=false, isDashboard = true
+}) {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false)
   const {
@@ -57,7 +46,22 @@ export default function ArticlesCurrentUser({authorID, isShowBg = true}) {
             <Container>
               <Row>
               {
-                posts.map(handleMap(loading)) 
+                posts.map(function (post) {
+                  return (
+                    <Col md={6} key={post.id}>
+                      {
+                        !loading ? <ArticleItem
+                          isStyleCard
+                          isShowDesc={isShowDesc}
+                          isShowAvatar={false} post={post}
+                          isDashboard={isDashboard}
+                        />
+                          : <ArticleItemSkeleton isStyleCard isShowAvatar={false}
+                            isDashboard={isDashboard} />
+                      }
+                    </Col>
+                )
+                }) 
               } 
               </Row>
             {!loading ? renderButtonLoadmore() : null}

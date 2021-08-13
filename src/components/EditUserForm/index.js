@@ -2,6 +2,7 @@ import "../UserProfile/userprofile.css"
 import React, { useState, useRef } from 'react'
 import UserProfileAvatar from '../UserProfile/UserProfileAvatar';
 import { Drawer, Form, Button, Col, Row, Input } from 'antd';
+import { InfoCircleOutlined } from "@ant-design/icons"
 import {actEditUserProfileAsync  } from "../../store/users/actions"
 import { useDispatch } from "react-redux"
 
@@ -26,8 +27,7 @@ export default function EditUser({ visibleForm, closeFormEditUser, userEditInfo,
         if (!media_id || media_id === null) {
             media_id = userEditInfo?.simple_local_avatar?.media_id;
         }
-        console.log({ id: userEditInfo?.id, ...data, media_id })
-    
+     
         dispatch(actEditUserProfileAsync({id: userEditInfo?.id, ...data, media_id}))
             .then(function (res) {
                 setLoading(false)
@@ -42,7 +42,7 @@ export default function EditUser({ visibleForm, closeFormEditUser, userEditInfo,
    
     return (
         <Drawer
-            title="Upload User"
+            title="Chỉnh sửa thông tin"
             width={720}
             onClose={closeFormEditUser}
             visible={visibleForm}
@@ -122,16 +122,14 @@ export default function EditUser({ visibleForm, closeFormEditUser, userEditInfo,
                 <Row gutter={16}>
                     <Col span={24}>
                         <Form.Item
-                        name="description"
-                        label="Description"
-                        rules={[
-                            {
-                            required: true,
-                            message: 'please enter url description',
-                            },
-                        ]}
-                        >
-                        <Input.TextArea rows={4} placeholder="please enter url description" />
+                            name="description"
+                            label="Description"
+                            tooltip={{
+                                title: "Không thay đổi !",
+                                icon: <InfoCircleOutlined style={{color: "#fa9c10"}} />,
+                            }}
+                            >
+                            <Input.TextArea rows={4} placeholder="please enter url description" />
                         </Form.Item>
                     </Col>
                 </Row>
@@ -143,8 +141,14 @@ export default function EditUser({ visibleForm, closeFormEditUser, userEditInfo,
                     }}
                 >
 
-                    <Button disabled={userEditInfo?.id ? false : true} type="primary" htmlType="submit" loading={loading}>
-                        Upload User
+                    <Button
+                        style={{ minWidth: "150px" }}
+                        type="default"
+                        shape="round"
+                        disabled={userEditInfo?.id ? false : true}
+                      htmlType="submit" loading={loading}
+                    >
+                        Lưu thông tin
                     </Button>
                 </Form.Item>
             </Form>

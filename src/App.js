@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Switch, Route } from "react-router-dom";
 // import Footer from "./components/Footer";
 import Header from "./components/Header";
-import Homepage from './pages/Homepage';
+
 import PostsCategory from './pages/PostsCategory';
 import LoginPage from './pages/LoginPage';
 import PostsSearch from './pages/PostsSearch';
@@ -13,7 +13,11 @@ import ChangePassword from "./pages/ChangePassword";
 import PostTag from "./pages/PostTag";
 import Dashboard from "./pages/Dashboard";
 import PageNotExit from "./pages/PageNotExit";
+import UserDetail from "./pages/UserDetail";
+import HomepageBlog from "./pages/HomepageBlog";
+// import Homepage from './pages/Homepage';
 // 
+
 import { useRouteMatch } from 'react-router-dom'
 import { actFetchCategoriesAsync } from "./store/categories/actions";
 import { actFetchMenusAsync } from "./store/menus/actions";
@@ -21,6 +25,7 @@ import { actCheckLoginAsync } from "./store/auth/actions";
 import { actFetchTagsAsync } from "./store/tags/actions"
 import { activateLang } from "./i18n";
 
+import {Affix } from "antd"
 function App() {
   const dispatch = useDispatch();
   const isDashboard = useRouteMatch('/dashboard');
@@ -44,8 +49,12 @@ function App() {
   
   return (
     <div className="wrapper-content">
-      { !isDashboard && <Header /> }
-
+      {
+        !isDashboard ?  <Affix offsetTop={0}>
+        <Header /> 
+      </Affix> : null
+      }
+     
       
       <Switch>
         <Route path="/login" exact>
@@ -71,6 +80,11 @@ function App() {
         <Route path="/register" exact>
           <RegisterPage />
         </Route>
+
+        <Route path="/user/:user_id" exact>
+          <UserDetail />
+        </Route>
+
         <Route path="/change-password" exact>
           <ChangePassword />
         </Route>
@@ -80,7 +94,7 @@ function App() {
         
 
         <Route path="/" exact>
-          <Homepage />
+          <HomepageBlog />
         </Route>
 
         <Route path="/">

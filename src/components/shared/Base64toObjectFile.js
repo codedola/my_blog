@@ -1,7 +1,6 @@
 
 export default function Base64ToObjectFile(dataurl, filename) {
     let arr = dataurl.split(',')
-console.log("arr = ", arr)
     let mime = arr[0]?.match(/:(.*?);/)[1];
     let bstr = atob(arr[1])
     let n = bstr.length

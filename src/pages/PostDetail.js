@@ -10,12 +10,16 @@ import { useDispatch } from 'react-redux';
 import { actResetDataComment } from '../store/comments/actions';
 import { actFetchPostDetailAsync } from '../store/posts/actions';
 import LoadingPage from '../components/LoadingPage';
+import { BackTopStyled} from "../components/StyledComponents/PostDetail.Styled"
+import { Row, Col } from "antd"
+import { UpOutlined } from "@ant-design/icons"
 
 function PostDetail() {
   const dispatch = useDispatch();
   const params = useParams();
   const slug = params.slug;
   const [status, setStatus] = useState('loading')
+
 
   useEffect(() => {
     return () => {
@@ -52,14 +56,28 @@ function PostDetail() {
 
         <div className="post-detail__fluid">
           <Container>
-            <div className="post-detail__wrapper">
-              <PostDetailContent />
+            {/* <div className="post-detail__wrapper">
+              <PostDetailContent/>
 
               <PostDetailSidebar/>
-            </div>
+            </div> */}
+            <Row gutter={[16, 8]}>
+              <Col sm={24} lg={16}>
+                <PostDetailContent />
+              </Col>
+              <Col sm={24} lg={8}>
+                <PostDetailSidebar/>
+              </Col>
+            </Row>
           </Container>
         </div>
         <div className="spacing"></div>
+
+         <BackTopStyled>
+          <div className="arrow_to_top">
+            <UpOutlined />
+          </div>
+        </BackTopStyled>
       </main>
       <LoadingPage loading={ status === 'loading' ? true : false }/>
     </>

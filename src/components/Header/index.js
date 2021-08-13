@@ -6,7 +6,7 @@ import { useRouteMatch } from "react-router-dom"
 export default function Header() {
   const isDashboard = useRouteMatch('/dashboard');
   const styleObj = {
-    height: "7rem",
+    height: "5rem",
     paddingTop: "6px",
     paddingBottom: "0px",
   }
