@@ -10,7 +10,8 @@ export default function ArticleItemInfo({
   authorId,
   authorName,
   authorAvatar,
-  authorLink
+  authorLink,
+  isShowInfoUser
 }) {
 
   const { createdDateStr, relativeTimeStr} =createDateTime(created)
@@ -25,10 +26,13 @@ export default function ArticleItemInfo({
           authorName={authorName}
         />
       }
-      <div className="article-item__info-right">
+
+      {
+        isShowInfoUser ?   <div className="article-item__info-right">
         <div className="article-item__author-name">
           <Link to={authorLink}><strong>{authorName}</strong></Link>
         </div>
+       
         <div className="article-item__datetime">
           <div className="date">{createdDateStr}</div>
           <div className="time">
@@ -36,7 +40,9 @@ export default function ArticleItemInfo({
             <span className="time__text">{relativeTimeStr}</span>       
           </div>
         </div>
-      </div>
+      </div> : null
+       }
+    
     </div>
   )
 }

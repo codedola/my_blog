@@ -16,8 +16,8 @@ export const PostService = {
       }
     })
   },
-  getLatest() {
-    return PostService.getList();
+  getLatest({ per_page = 4, ...restParams } = {}) {
+    return PostService.getList({ per_page, ...restParams });
   },
   getPopular() {
     return PostService.getList({

@@ -1,15 +1,16 @@
 import React, {useEffect} from 'react'
-import { Row, Col } from "antd"
+import { Col , Divider} from "antd"
 import { useDispatch } from 'react-redux';
-import { actFetchPostsAsync, actFetchPopularPostsAsync } from '../store/posts/actions';
+import { actFetchPostsAsync, actFetchPopularPostsAsync, actFetchLatestPostsAsync } from '../store/posts/actions';
 import SidebarHomeBlog from '../components/HomepageBlog/SidebarHomeBlog';
 import ListContentBlog from "../components/HomepageBlog/ListContentBlog"
-import TaskbarBlog from '../components/HomepageBlog/TaskbarBlog';
-import { ContainerHomeBlog } from "../components/StyledComponents/Homepage.Styled"
+import ListNewArticleBlog from '../components/HomepageBlog/ListNewArticleBlog';
+import { ContainerHomeBlog, RowHomeBlog } from "../components/StyledComponents/Homepage.Styled"
 export default function HomepageBlog() {
     const dispatch = useDispatch();
 
     useEffect(function () {
+        dispatch(actFetchLatestPostsAsync());
         dispatch(actFetchPopularPostsAsync());
         dispatch(actFetchPostsAsync())
     }, [dispatch])
@@ -18,10 +19,10 @@ export default function HomepageBlog() {
     return (
         <div className="wrapper_homepage bg-white-blue">
             <ContainerHomeBlog>
-                <Row gutter={[16, 16]}
-                    style={{ paddingLeft: 20, paddingRight: 20, marginTop: 20 }}>
+                <RowHomeBlog gutter={[16, 16]}>
                     <Col lg={16}>
-                            <TaskbarBlog />
+                        <ListNewArticleBlog />
+                        <Divider />
                         <ListContentBlog />
                         <div className="spacing"></div>
                     </Col>
@@ -30,7 +31,7 @@ export default function HomepageBlog() {
                     <Col lg={8}>
                         <SidebarHomeBlog/>
                     </Col>
-                </Row>
+                </RowHomeBlog>
             </ContainerHomeBlog>
         </div>
     )

@@ -1,4 +1,4 @@
-import "../UserProfile/userprofile.css"
+ import "../UserProfile/userprofile.css"
 import React, { useState, useRef } from 'react'
 import UserProfileAvatar from '../UserProfile/UserProfileAvatar';
 import { Drawer, Form, Button, Col, Row, Input, Select } from 'antd';
@@ -11,7 +11,7 @@ export default function NewUser({ visibleForm, closeFormNewUser }) {
     const formRef = useRef(null);
     //
     const dispatch = useDispatch();
-    //
+    
     const [objFile, setObjFile] = useState(null);
     const [mediaID, setMediaID] = useState(null);
     const [loading, setLoading] = useState(false);

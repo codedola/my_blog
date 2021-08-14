@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import { BackTop} from "antd"
 export const BackTopStyled = styled(BackTop)`
-/* left: 10px; */
-right: 80px;
+    right: 60px;
    .arrow_to_top {
        height: 60px;
         width: 60px;

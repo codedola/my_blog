@@ -18,11 +18,16 @@ export default function ArticleBlog({
   isStyleRow = true,
   isShowCategoies = true,
   isShowAvatar = true,
+  isShowTitle = true,
+  isShowInfo = true,
+  isNewStory = false,
+  isShowInfoUser= true,
   post
 }) {
   const classes = cls('article-item', {
     'style-card': isStyleCard,
     'style-row': isStyleRow,
+    'style-story': isNewStory
   })
 
   if (!post) {
@@ -48,23 +53,31 @@ export default function ArticleBlog({
   
 
   return (
-    <ArticleBlogStyled className={classes}>
+    <ArticleBlogStyled className={classes} >
       <div className="article-item__content">
-        <ArticleItemInfo 
-          isShowAvatar={isShowAvatar} 
-          created={created}
-          authorId={authorId}
-          authorName={authorName}
-          authorLink={authorLink}
-          authorAvatar={authorAvatar}
-        />
+        {
+          isShowInfo ?
+            <ArticleItemInfo
+              isShowInfoUser={isShowInfoUser}
+              isShowAvatar={isShowAvatar} 
+              created={created}
+              authorId={authorId}
+              authorName={authorName}
+              authorLink={authorLink}
+              authorAvatar={authorAvatar}
+            /> : null
+        }
+        
 
         <Divider />
 
-         <ArticleItemTitle 
-          title={title} 
-          slugLink={slugLink}
-        />
+        {
+          isShowTitle ?  <ArticleItemTitle 
+              title={title} 
+              slugLink={slugLink}
+            /> : null
+        }
+        
 
         { isShowCategoies && <ArticleItemCategories categoriesId={categoriesId} /> }
         { isShowCategoies && <ArticleItemStats viewCount={viewCount} /> }

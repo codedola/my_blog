@@ -7,7 +7,7 @@ import {
     WapperTaskbarStyled, ItemIconStyled,
     ButtonSearchTashbar
 } from "../StyledComponents/Homepage.Styled"
-
+import { useHistory } from "react-router-dom"
 const listIcons = [
     {
         name: "react",
@@ -36,12 +36,19 @@ const listIcons = [
  
 ]
 export default function TaskbarBlog() {
+    const history = useHistory();
+
+    function handleSearchMainTopic(keyName) {
+        return function () {
+            history.push("/search?q=" + keyName)
+        }
+    }
     return (
         <WapperTaskbarStyled>
             {
                 listIcons.map(function (item, index) {
                     return (
-                        <ItemIconStyled key={ index } >
+                        <ItemIconStyled key={ index } onClick={handleSearchMainTopic(item.name)}>
                             {item.icon}
                             <p>{item.name}</p>
                             <ButtonSearchTashbar type="default" size="small" >Tìm kiếm</ButtonSearchTashbar>
