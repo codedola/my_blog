@@ -11,7 +11,7 @@ export default function ArticleItemInfo({
   authorName,
   authorAvatar,
   authorLink,
-  isShowInfoUser
+  isShowInfoUser = true
 }) {
 
   const { createdDateStr, relativeTimeStr} =createDateTime(created)

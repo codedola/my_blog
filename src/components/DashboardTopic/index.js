@@ -27,7 +27,7 @@ export default function DashboardTopic() {
                     style={{ height: "100%", borderRadius: 10 }}>
                     <div className="tcl-row" >
                         <div className="tcl-col-12 tcl-col-sm-8 block-center">
-                            <div className="spacing"></div>
+                            <div className="spacing bg-white-gray"></div>
                             <ChangePasswordForm sizeBtn="medium" />
                         </div>
                     </div>

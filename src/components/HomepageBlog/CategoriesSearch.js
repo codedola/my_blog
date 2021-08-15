@@ -3,10 +3,10 @@ import {
     ReactIcon, VueIcon,
     GitIcon, GithubIcon, AngularIcon, JSIcon
 } from "../shared/TaskbarIcon"
-import {
-    WapperTaskbarStyled, ItemIconStyled,
+import { ItemIconStyled,
     ButtonSearchTashbar
 } from "../StyledComponents/Homepage.Styled"
+import {Row, Col} from "antd"
 import { useHistory } from "react-router-dom"
 const listIcons = [
     {
@@ -35,7 +35,7 @@ const listIcons = [
     },
  
 ]
-export default function TaskbarBlog() {
+export default function CategoriesSearch() {
     const history = useHistory();
 
     function handleSearchMainTopic(keyName) {
@@ -44,18 +44,21 @@ export default function TaskbarBlog() {
         }
     }
     return (
-        <WapperTaskbarStyled>
+        <Row gutter={[16, 16]} justify="center">
             {
                 listIcons.map(function (item, index) {
                     return (
-                        <ItemIconStyled key={ index } onClick={handleSearchMainTopic(item.name)}>
-                            {item.icon}
-                            <p>{item.name}</p>
-                            <ButtonSearchTashbar type="default" size="small" >Tìm kiếm</ButtonSearchTashbar>
-                        </ItemIconStyled>
+                        <Col lg={8} key={ index }>
+                             <ItemIconStyled onClick={handleSearchMainTopic(item.name)}>
+                                {item.icon}
+                                <p>{item.name}</p>
+                                <ButtonSearchTashbar type="default" size="small" >Tìm kiếm</ButtonSearchTashbar>
+                            </ItemIconStyled>
+                        </Col>
+                       
                     )
                 })
             }
-        </WapperTaskbarStyled>
+        </Row>
     )
 }

@@ -3,7 +3,11 @@ import { api } from './api';
 
 export const UserService = {
   me() {
-    return api.callWithToken().get('/wp/v2/users/me');
+    return api.callWithToken().get('/wp/v2/users/me', {
+      params: {
+        context:"edit"
+      }
+    });
   },
   login({
     username,

@@ -4,10 +4,13 @@ import { Button , Row, Badge } from "antd"
 export const ContainerHomeBlog = styled.div` 
     min-width: 0px; 
     width: 100%;
-    max-width: 1270px;
+    max-width: 1200px;
     padding-left: 1rem;
     padding-right: 1rem;
     margin: 0px auto;
+    /* @media only screen and (min-width: 640px){
+           background: unset;
+    } */
 `
 
 export const RowHomeBlog = styled(Row)`
@@ -21,10 +24,11 @@ export const ButtonSearchTashbar = styled(Button)`
     border: 1px solid transparent;
     background-color: #ffffff8c;
     border-radius: 8px;
+    font-size: 12px;
     &:hover, &:active, &:focus{
         color: #0909094f;
-          border: 1px solid transparent;
-    background-color: #ffffff8c;
+        border: 1px solid transparent;
+        background-color: #ffffff8c;
     }
 `
 export const WapperTaskbarStyled = styled.div`
@@ -36,6 +40,7 @@ export const WapperTaskbarStyled = styled.div`
     flex-wrap: wrap
 `
 export const ItemIconStyled = styled.div`
+    box-sizing: border-box;
     padding: 16px;
     background-color: #ffffff;
 
@@ -70,10 +75,36 @@ export const SidebarContainer = styled.div`
     
 `
 export const ArticleBlogStyled = styled.article` 
-    border-radius: 6px;
+    border-radius: 12px;
 
+    &.style-story .article-item__thumbnail {
+         @media only screen and (max-width: 640px) {
+            flex-basis: 100%;
+            max-width: 100%;
+            margin: 0;
+         }
+
+         //max-width: 480px
+        
+    }
+    &.style-story .article-item__content {
+        .ant-divider {
+            display: none;
+        }
+        @media only screen and (min-width: 640px){
+           background: unset;
+         }
+         @media only screen and (max-width: 640px) {
+                height: 100%;
+                width: 100%;
+                position: absolute;
+                z-index: 3;
+                /* padding: 2rem; */
+         }
+        
+    }
     .article-item__content {
-        padding-bottom: 10px;
+          padding-bottom: 10px;
         .article-item__desc {
             font-size: 16px;
         }

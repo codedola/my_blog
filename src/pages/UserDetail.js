@@ -6,8 +6,9 @@ import { actGetInfoUserByIDAsync } from "../store/users/actions";
 import { ImageStyled, SkeletonAvatarStyled} from "../components/StyledComponents/UsersTable.styled";
 import createDefaultAvatar from "../helpers/createDefaultAvatar";
 import ArticlesCurrentUser from '../components/DashboardTopic/ArticlesCurrentUser';
-
+import useAuth from "../hooks/useAuth"
 export default function UserDetail() {
+    useAuth();
     const dispatch = useDispatch();
     const paramObj = useParams();
     const userID = Number(paramObj.user_id)

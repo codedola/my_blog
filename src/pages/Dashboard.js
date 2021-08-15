@@ -26,7 +26,7 @@ export default function Dashboard() {
     const [collapsed, setCollapsed] = useState(false);
     const [visibleForm, setVisibleForm] = useState(false);
     const currentUser = useSelector(state => state.Auth.currentUser)
-    
+    const isAdmin = currentUser.roles?.includes("administrator");
     if (!currentUser) return null;
     
     function onSelectedKey(keyInfo) {
@@ -71,18 +71,22 @@ export default function Dashboard() {
                         <Menu.Item key="9" icon={<PlusCircleOutlined />}>
                             <Link to={`${url}/post-creation`}>New Post</Link>
                         </Menu.Item>
-                        <SubMenu key="submenu_users" icon={<BarChartOutlined  />} title="Management">
-                            <Menu.Item key="7" icon={<UsergroupAddOutlined />}>
-                                <Link to={`${url}/users`}>All Users</Link>
-                            </Menu.Item>
-                            <Menu.Item
-                                key="8"
-                                icon={<UserAddOutlined />}
-                                onClick={openFormNewUser}
-                            >
-                                New User
-                            </Menu.Item>
-                        </SubMenu>
+                        {
+                            isAdmin ?
+                            <SubMenu key="submenu_users" icon={<BarChartOutlined  />} title="Management">
+                                <Menu.Item key="7" icon={<UsergroupAddOutlined />}>
+                                    <Link to={`${url}/users`}>All Users</Link>
+                                </Menu.Item>
+                                <Menu.Item
+                                    key="8"
+                                    icon={<UserAddOutlined />}
+                                    onClick={openFormNewUser}
+                                >
+                                    New User
+                                </Menu.Item>
+                            </SubMenu> : null
+                        }
+                     
                         
                         <Menu.Item key="4" icon={<FormOutlined />}>
                             <Link to={`${url}/change-password`}>Thay đổi mật khẩu</Link>

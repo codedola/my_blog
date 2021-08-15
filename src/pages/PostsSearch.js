@@ -57,12 +57,13 @@ export default function PostsCategory() {
           {
             totalElements > 0 ? posts.map(post => {
               return (
-                <Col md={9} xs={12} key={post.id}>
+                <Col md={8} xs={12} key={post.id}>
                   <ArticleItem post={post} isStyleCard isShowCategoies isShowDesc />
                 </Col>
               )
             }) : <Empty description='Không tìm thấy bài viết' imageStyle={{height: 220}} />
           }
+
         </Row>
         
         {renderButtonLoadmore()}

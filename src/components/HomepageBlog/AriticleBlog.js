@@ -9,6 +9,7 @@ import ArticleItemInfo from '../ArticleItem/ArticleItemInfo';
 import ArticleItemCategories from '../ArticleItem/ArticleItemCategories';
 import ArticleItemStats from '../ArticleItem/ArticleItemStats';
 import { Divider } from "antd"
+import { useHistory } from "react-router-dom"
 import { ArticleBlogStyled } from "../StyledComponents/Homepage.Styled";
 
 
@@ -24,6 +25,7 @@ export default function ArticleBlog({
   isShowInfoUser= true,
   post
 }) {
+  const history = useHistory();
   const classes = cls('article-item', {
     'style-card': isStyleCard,
     'style-row': isStyleRow,
@@ -51,9 +53,14 @@ export default function ArticleBlog({
   const categoriesId = post.categories;
   
   
+  function hanldeShowPostDetail() {
+    if (isNewStory) {
+      history.push("/post/" + post.slug)
+    }
+  }
 
   return (
-    <ArticleBlogStyled className={classes} >
+    <ArticleBlogStyled className={classes} onClick={isNewStory ? hanldeShowPostDetail : null} >
       <div className="article-item__content">
         {
           isShowInfo ?

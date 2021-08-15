@@ -8,7 +8,7 @@ export default function ListNewArticleBlog() {
     return (
       
         
-      <Row>
+      <Row style={{padding: "16px 4px", backgroundColor: "#fff", borderRadius: 10}}>
             {
                 posts?.map((post, index) => {
                     return (
