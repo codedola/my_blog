@@ -1,6 +1,5 @@
 import React from 'react'
 import { useSelector } from "react-redux"
-
 import { Collapse } from 'antd';
 import MenuItemPostCreation from './MenuItemPostCreation';
 import {CollapseStyled} from "../StyledComponents/PostCreation.Styled"
@@ -22,10 +21,9 @@ export default function MenuPostCreation({
     }
     
     return (
-        <CollapseStyled>
-            <Panel header="Categories" key={"1"} className="categories">
+        <CollapseStyled defaultActiveKey={["1", "2"]}>
+            <Panel header="Categories" key="1" className="categories">
                 <MenuItemPostCreation
-                    key={Math.random()}
                     keyField="category"
                     listItem={listCategories}
                     classNameItem="categories"
@@ -33,9 +31,8 @@ export default function MenuPostCreation({
                     handleSetSelectedItems = {handleSetSelectedItems}
                 />
             </Panel>
-            <Panel header="Tags" key={"2"} className="tags">
+            <Panel header="Tags"  key="2" className="tags">
                 <MenuItemPostCreation
-                    key={Math.random()}
                     keyField="tag"
                     listItem={listTags}
                     classNameItem="tags"

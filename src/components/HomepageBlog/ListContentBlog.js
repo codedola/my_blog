@@ -4,7 +4,7 @@ import { UpOutlined } from "@ant-design/icons"
 import AriticleBlog from "./AriticleBlog";
 import { usePostsPaging } from "../../hooks/usePostsPaging";
 import { BackTopStyled} from "../StyledComponents/PostDetail.Styled"
-
+import AriticleBlogSkeleton from "./AriticleBlogSkeleton"
 export default function ListContentBlog() {
     const {
         posts,
@@ -22,6 +22,13 @@ export default function ListContentBlog() {
                             </Col>
                         )
                     })
+                }
+                {
+                    posts.length === 0 && (
+                        <Col lg={24}>
+                            <AriticleBlogSkeleton />
+                        </Col>
+                    )
                 }
             </Row>
             <div className="spacing"></div>

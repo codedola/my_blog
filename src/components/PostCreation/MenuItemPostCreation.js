@@ -18,10 +18,10 @@ export default function MenuItemPostCreation({
     return (
         <div className={`item ${classNameItem}`}>
             <Row justify="start" align="middle" gutter={[16, 16]}>
-                {listItem?.map(tag => {
+                {listItem?.map((tag, index) => {
                     const isChecked = selectedItems?.indexOf(tag.id) > -1
                     return (
-                        <Col md={24} lg={12} className="gutter-row">
+                        <Col md={24} lg={12} className="gutter-row" key={index}>
                             <CheckableTagStyled
                                 key={tag.id}
                                 checked={isChecked}

@@ -26,7 +26,7 @@ export default function Dashboard() {
     const [collapsed, setCollapsed] = useState(false);
     const [visibleForm, setVisibleForm] = useState(false);
     const currentUser = useSelector(state => state.Auth.currentUser)
-    const isAdmin = currentUser.roles?.includes("administrator");
+    const isAdmin = currentUser?.roles?.includes("administrator");
     if (!currentUser) return null;
     
     function onSelectedKey(keyInfo) {

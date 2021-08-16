@@ -74,9 +74,7 @@ export default function PostCreation({
                     }
                 }
             }
-       })
-        
-        
+       }) 
     }
 
     const handleSetAvatarUser = (objFileAvatar) => {

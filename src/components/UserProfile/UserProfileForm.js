@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { Form, Input } from 'antd';
 import Button from "../shared/Button";
 import { useSelector} from "react-redux"
-
+import { FormItemNickName } from "../StyledComponents/UserProfileForm.Styled"
 const layout = {
   labelCol: {
     span: 4,
@@ -65,7 +65,7 @@ export default function UserProfileForm({ handleSetInfoUser, handleUploadProfile
                 <Input />
             </Form.Item>
 
-            <Form.Item
+            <FormItemNickName
                 name='nickname'
                 label="Nickname"
                 hasFeedback
@@ -73,7 +73,7 @@ export default function UserProfileForm({ handleSetInfoUser, handleUploadProfile
                 help={isData ? null : "Nickname is required!"} 
             >
                 <Input />
-            </Form.Item>
+            </FormItemNickName>
           
             <Form.Item name='description' label="Description">
                 <Input.TextArea />
