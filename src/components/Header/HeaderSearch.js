@@ -1,17 +1,17 @@
-import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import Input from '../shared/Input';
-import { t } from "@lingui/macro"
+import { useState } from "react";
+import { useHistory } from "react-router-dom";
+import Input from "../shared/Input";
+import { t } from "@lingui/macro";
 
 export default function HeaderSearch() {
   const history = useHistory();
-  const [searchStr, setSearchStr] = useState('');
-  
+  const [searchStr, setSearchStr] = useState("");
+
   function handleSubmit(evt) {
     evt.preventDefault();
 
     if (searchStr.trim()) {
-      history.push('/search?q=' + searchStr);
+      history.push("/search?q=" + searchStr);
     }
   }
 
@@ -20,11 +20,15 @@ export default function HeaderSearch() {
   }
 
   return (
-    <div className="tcl-col-4">
-      
+    <div style={{ flex: 1 }}>
       <form onSubmit={handleSubmit}>
-        <Input placeholder={t`Nhập từ khoá tìm kiếm`} type="search" value={searchStr} onChange={handleChange} />
+        <Input
+          placeholder={t`Nhập từ khoá tìm kiếm`}
+          type="search"
+          value={searchStr}
+          onChange={handleChange}
+        />
       </form>
     </div>
-  )
+  );
 }
