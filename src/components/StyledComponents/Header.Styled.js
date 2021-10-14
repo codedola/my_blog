@@ -28,7 +28,7 @@ export const WapperSearchCategories = styled.div`
 
 export const ListCategories = styled(List)`
   width: 210px;
-  height: 50vh;
+  height: 40vh;
   overflow-y: scroll;
   .MenuItemEmpty {
     justify-content: center;
@@ -104,5 +104,53 @@ export const CategoriesBtn = styled.p`
   span {
     margin-left: 2px;
     vertical-align: baseline;
+  }
+`;
+
+// Search Result
+export const FormSearch = styled.form`
+  position: relative;
+  .input-search-wrapper {
+    /* position: relative; */
+    background-color: #f8f8f8;
+    border-radius: 24px;
+    svg {
+      color: gray;
+    }
+  }
+
+  span.anticon-close {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 4px;
+    background-color: #bfbfbf;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+`;
+export const SearchResult = styled.div`
+  position: absolute;
+  padding: 12px 24px;
+  height: auto;
+  width: 100%;
+  box-shadow: 0 -4px 32px rgb(0 0 0 / 20%);
+  background: white;
+  border-radius: 14px;
+  top: 120%;
+  color: gray;
+  display: flex;
+  align-items: center;
+  .anticon-search {
+    color: gray;
+    margin-right: 6px;
+  }
+  svg {
+    width: 13px;
+    height: 13px;
+    margin-right: 6px;
+    /* vertical-align: -0.4px; */
   }
 `;
