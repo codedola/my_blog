@@ -109,52 +109,6 @@ export const CategoriesBtn = styled.p`
 `;
 
 // Search Result
-export const FormSearch = styled.form`
-  position: relative;
-  .input-search-wrapper {
-    /* position: relative; */
-    background-color: #f8f8f8;
-    border-radius: 24px;
-    svg {
-      color: gray;
-    }
-  }
-
-  span.anticon-close {
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    padding: 4px;
-    background-color: #bfbfbf;
-    color: white;
-    border-radius: 20px;
-    cursor: pointer;
-  }
-`;
-export const SearchResult = styled.div`
-  position: absolute;
-  padding: 12px 24px;
-  height: auto;
-  width: 100%;
-  box-shadow: 0 -4px 32px rgb(0 0 0 / 20%);
-  background: white;
-  border-radius: 10px;
-  top: 120%;
-  color: gray;
-  display: flex;
-  align-items: center;
-  .anticon-search {
-    color: gray;
-    margin-right: 6px;
-  }
-  svg {
-    width: 13px;
-    height: 13px;
-    margin-right: 6px;
-    /* vertical-align: -0.4px; */
-  }
-`;
 
 export const InputSearch = styled(Input.Search)`
   .ant-input-wrapper {
@@ -229,10 +183,88 @@ export const WapperInputSearch = styled.div`
     }
   }
 `;
-export const TitleSearchResult = styled.span`
+export const TitleSearchResult = styled.div`
+  display: flex;
+  align-items: center;
   color: gray;
   svg {
     width: 16px;
     height: 16px;
+    margin-right: 6px;
+  }
+
+  .text_search {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+`;
+
+export const ListItemPostSearch = styled(List.Item)`
+  border-bottom: unset !important;
+  .ant-list-item-meta {
+    align-items: center;
+    .ant-list-item-meta-avatar {
+    }
+
+    .ant-list-item-meta-content {
+      .ant-list-item-meta-title {
+        margin-bottom: 0;
+      }
+    }
+  }
+`;
+
+export const TopMorePostLastest = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 20px 0 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  margin-bottom: 6px;
+
+  h5 {
+    font-size: 18px;
+    color: #4d4d4d;
+    font-weight: 400;
+    margin: 0;
+  }
+  a {
+    color: #4d4d4d;
+    font-size: 14px;
+    font-weight: 200;
+  }
+`;
+
+export const TitlePostItemSearch = styled.div`
+  display: flex;
+  align-items: center;
+
+  .rise_view {
+    margin-left: 8px;
+    display: flex;
+    align-items: center;
+    color: #00c10f;
+    font-weight: 400;
+    font-size: 12px;
+    padding: 0px 4px;
+    border-radius: 10px;
+    cursor: auto;
+    background-color: #71ff7221;
+
+    &.fall {
+      color: #f03535;
+      background-color: #ff85851f;
+    }
+    span {
+      font-size: 12px;
+    }
+    .anticon {
+      margin-right: 2px;
+      margin-left: 2px;
+      font-size: 16px;
+    }
   }
 `;

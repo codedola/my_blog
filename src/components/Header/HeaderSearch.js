@@ -10,15 +10,17 @@ import {
 import SearchIcon from "./SearchIcon";
 import HeaderPopoverContent from "./HeaderPopoverContent";
 export default function HeaderSearch() {
+  const history = useHistory();
   const [searchStr, setSearchStr] = useState("");
 
   function handleOnChange(e) {
-    console.log("handleOnChange", e.target.value);
     setSearchStr(e.target.value);
   }
 
   function hanldeOnSubmit(data) {
-    console.log("handle submit", data);
+    if (data.trim() !== "") {
+      history.push("/search?q=" + data.trim());
+    }
   }
 
   return (
@@ -28,13 +30,13 @@ export default function HeaderSearch() {
         placement="bottom"
         title={
           <TitleSearchResult>
-            <SearchIcon /> Tìm '{searchStr}'
+            <SearchIcon />
+            <span className="text_search">Tìm '_{searchStr}'</span>
           </TitleSearchResult>
         }
         content={<HeaderPopoverContent />}
         trigger={["hover"]}
         // visible={true}
-
         getPopupContainer={() => document.querySelector(".NhanDo_Popover_Input")}
       >
         <WapperInputSearch>
