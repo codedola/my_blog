@@ -203,6 +203,14 @@ export const TitleSearchResult = styled.div`
 
 export const ListItemPostSearch = styled(List.Item)`
   border-bottom: unset !important;
+  background-color: #ffffff;
+  background-image: linear-gradient(160deg, #eff9ff3b 0%, #8ad9ff7a 100%);
+  border-radius: 16px;
+  padding: 6px 4px;
+  margin-bottom: 12px;
+  &:last-child {
+    margin-bottom: 0;
+  }
   .ant-list-item-meta {
     align-items: center;
     .ant-list-item-meta-avatar {
@@ -241,6 +249,7 @@ export const TopMorePostLastest = styled.div`
 export const TitlePostItemSearch = styled.div`
   display: flex;
   align-items: center;
+  margin-bottom: 4px;
 
   .rise_view {
     margin-left: 8px;

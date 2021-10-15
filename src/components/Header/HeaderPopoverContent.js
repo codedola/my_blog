@@ -1,5 +1,5 @@
 import React from "react";
-import { List, Avatar, Empty } from "antd";
+import { List, Avatar, Empty, Tag } from "antd";
 import { RiseOutlined, FallOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -9,9 +9,10 @@ import {
   TopMorePostLastest,
   TitlePostItemSearch,
 } from "../StyledComponents/Header.Styled";
-
+import { genHashCategoryKey } from "../../store/categories/reducer";
 export default function HeaderPopoverContent() {
   const posts = useSelector((state) => state.Posts.articlesLatest);
+  const hashCate = useSelector((state) => state.Categories.hashCategoriesFromId);
 
   return (
     <div className="wapper_content">
@@ -40,12 +41,24 @@ export default function HeaderPopoverContent() {
                     <TitlePostItemSearch>
                       <Link to={"/post/" + post.slug}>{post?.title?.rendered}</Link>
                       <div className={`${isRise ? "rise_view" : "rise_view fall"}`}>
-                        {isRise ? <RiseOutlined /> : <FallOutlined />}
+                        views {isRise ? <RiseOutlined /> : <FallOutlined />}
                         <span>{post?.id || 20}%</span>
                       </div>
                     </TitlePostItemSearch>
                   }
-                  description={<span>By {post?.author_data?.nickname}</span>}
+                  description={
+                    <div>
+                      <span style={{ color: "#025ccb" }}>By {post?.author_data?.nickname} | </span>
+                      {post.categories.map((id) => {
+                        const keyCate = genHashCategoryKey(id);
+                        return (
+                          <Tag key={id} color="geekblue" style={{ borderRadius: 10 }}>
+                            {hashCate[keyCate]?.name}
+                          </Tag>
+                        );
+                      })}
+                    </div>
+                  }
                 />
               </ListItemPostSearch>
             );
