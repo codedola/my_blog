@@ -1,0 +1,28 @@
+.certain-category-search-dropdown {
+  position: fixed;
+  top: 76px !important;
+  border-radius: 16px;
+  padding: 12px;
+}
+
+.certain-category-search-dropdown
+  .rc-virtual-list
+  .rc-virtual-list-scrollbar.rc-virtual-list-scrollbar-show
+  .rc-virtual-list-scrollbar-thumb {
+  display: none;
+  /* height: 100% !important; */
+}
+
+.certain-category-search-dropdown .rc-virtual-list .rc-virtual-list-holder {
+  max-height: 80vh !important;
+  height: 80vh;
+}
+
+.certain-category-search-dropdown .rc-virtual-list .rc-virtual-list-holder > div {
+  height: 100% !important;
+}
+
+.rc-virtual-list-holder-inner {
+  transform: unset !important;
+  height: 100% !important;
+}

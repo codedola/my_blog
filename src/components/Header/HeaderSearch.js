@@ -1,54 +1,56 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import Input from "../shared/Input";
-import { t } from "@lingui/macro";
-import { CloseOutlined } from "@ant-design/icons";
-import { SearchResult, FormSearch } from "../StyledComponents/Header.Styled";
+// import { t } from "@lingui/macro";
+import { Popover } from "antd";
+import {
+  WapperInputSearch,
+  InputSearch,
+  TitleSearchResult,
+} from "../StyledComponents/Header.Styled";
 import SearchIcon from "./SearchIcon";
+import HeaderPopoverContent from "./HeaderPopoverContent";
 export default function HeaderSearch() {
-  const history = useHistory();
   const [searchStr, setSearchStr] = useState("");
-  const [isFocus, setIsFocus] = useState(false);
 
-  function handleSubmit(evt) {
-    evt.preventDefault();
-    if (searchStr.trim()) {
-      history.push("/search?q=" + searchStr);
-    }
+  function handleOnChange(e) {
+    console.log("handleOnChange", e.target.value);
+    setSearchStr(e.target.value);
   }
 
-  function handleChange(evt) {
-    setSearchStr(evt.target.value);
-  }
-  function handleOnBlur() {
-    setIsFocus(false);
-  }
-  function handleOnFocus() {
-    setIsFocus(true);
+  function hanldeOnSubmit(data) {
+    console.log("handle submit", data);
   }
 
   return (
     <div style={{ flex: 1 }}>
-      <FormSearch onSubmit={handleSubmit}>
-        <Input
-          placeholder={t`Nhập từ khoá tìm kiếm`}
-          type="search"
-          value={searchStr}
-          onChange={handleChange}
-          onFocus={handleOnFocus}
-          onBlur={handleOnBlur}
-        />
-        {searchStr.length !== 0 && <CloseOutlined onClick={() => setSearchStr("")} />}
+      <Popover
+        className="NhanDo_Popover_Input"
+        placement="bottom"
+        title={
+          <TitleSearchResult>
+            <SearchIcon /> Tìm '{searchStr}'
+          </TitleSearchResult>
+        }
+        content={<HeaderPopoverContent />}
+        trigger={["hover"]}
+        // visible={true}
 
-        {searchStr.length !== 0 ? (
-          <div style={{ display: isFocus ? "block" : "none" }}>
-            <SearchResult>
-              <SearchIcon />
-              <span>Tìm '{searchStr.trim()}'</span>
-            </SearchResult>
-          </div>
-        ) : null}
-      </FormSearch>
+        getPopupContainer={() => document.querySelector(".NhanDo_Popover_Input")}
+      >
+        <WapperInputSearch>
+          <InputSearch
+            size="large"
+            placeholder="Tìm kiếm bài viết, framework,..."
+            bordered={false}
+            addonBefore={<SearchIcon />}
+            allowClear
+            enterButton={null}
+            value={searchStr}
+            onChange={handleOnChange}
+            onSearch={hanldeOnSubmit}
+          />
+        </WapperInputSearch>
+      </Popover>
     </div>
   );
 }
