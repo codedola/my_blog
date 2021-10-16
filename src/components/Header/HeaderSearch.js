@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 // import { t } from "@lingui/macro";
 import { Popover } from "antd";
@@ -8,13 +8,46 @@ import {
   TitleSearchResult,
 } from "../StyledComponents/Header.Styled";
 import SearchIcon from "./SearchIcon";
+import SearchLoadingIcon from "./SearchLoadingIcon";
 import HeaderPopoverContent from "./HeaderPopoverContent";
+import { PostService } from "../../services/posts";
 export default function HeaderSearch() {
   const history = useHistory();
   const [searchStr, setSearchStr] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [listPostSearch, setListPostSearch] = useState(null);
 
+  useEffect(
+    function () {
+      if (searchStr === "") {
+        setListPostSearch(null);
+      }
+    },
+    [searchStr]
+  );
   function handleOnChange(e) {
-    setSearchStr(e.target.value);
+    const valueSearch = e.target.value;
+    setSearchStr(valueSearch);
+    //
+    if (isLoading) return;
+    const searchResult = valueSearch.trim();
+    if (searchResult.length >= 2 && !isLoading) {
+      const TimeoutID = setTimeout(() => {
+        setIsLoading(true);
+        PostService.getList({ search: searchResult, per_page: 4 })
+          .then(function (res) {
+            setIsLoading(false);
+            clearTimeout(TimeoutID);
+            if (res.status === 200) {
+              setListPostSearch(res.data);
+            }
+          })
+          .catch(() => {
+            clearTimeout(TimeoutID);
+            setIsLoading(false);
+          });
+      }, 400);
+    }
   }
 
   function hanldeOnSubmit(data) {
@@ -30,12 +63,12 @@ export default function HeaderSearch() {
         placement="bottom"
         title={
           <TitleSearchResult>
-            <SearchIcon />
+            {isLoading ? <SearchLoadingIcon /> : <SearchIcon />}
             <span className="text_search">Tìm '_{searchStr}'</span>
           </TitleSearchResult>
         }
-        content={<HeaderPopoverContent />}
-        trigger={["hover"]}
+        content={<HeaderPopoverContent listPostSearch={listPostSearch} />}
+        trigger="hover"
         // visible={true}
         getPopupContainer={() => document.querySelector(".NhanDo_Popover_Input")}
       >

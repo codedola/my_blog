@@ -8,20 +8,49 @@ import {
   ListItemPostSearch,
   TopMorePostLastest,
   TitlePostItemSearch,
+  ListItemPostSearchResult,
 } from "../StyledComponents/Header.Styled";
 import { genHashCategoryKey } from "../../store/categories/reducer";
-export default function HeaderPopoverContent() {
+import SearchListIcon from "./SearchListIcon";
+export default function HeaderPopoverContent({ listPostSearch }) {
   const posts = useSelector((state) => state.Posts.articlesLatest);
   const hashCate = useSelector((state) => state.Categories.hashCategoriesFromId);
 
   return (
     <div className="wapper_content">
       <div className="result">
-        <TopMorePostLastest>
+        <TopMorePostLastest paddingStyle={"0 0 10px"}>
           <h5>Kết quả tìm kiếm</h5>
           <Link to="/search?q=a">Tìm kiếm</Link>
         </TopMorePostLastest>
-        <Empty description="Không tìm thấy bài viết" />
+
+        {listPostSearch === null && (
+          <div style={{ textAlign: "center" }}>
+            <SearchListIcon />
+          </div>
+        )}
+        {listPostSearch && listPostSearch?.length === 0 && (
+          <Empty description="Không tìm thấy bài viết" />
+        )}
+        {listPostSearch &&
+          listPostSearch?.length > 0 &&
+          listPostSearch?.map((post, index) => {
+            return (
+              <ListItemPostSearchResult key={index}>
+                <List.Item.Meta
+                  avatar={<Avatar size="large" src={post?.featured_media_url} />}
+                  title={
+                    <TitlePostItemSearch>
+                      <Link to={"/post/" + post.slug}>{post?.title?.rendered}</Link>
+                    </TitlePostItemSearch>
+                  }
+                  description={
+                    <span style={{ color: "#025ccb" }}>By {post?.author_data?.nickname}</span>
+                  }
+                />
+              </ListItemPostSearchResult>
+            );
+          })}
       </div>
       <div className="courses">
         <TopMorePostLastest>

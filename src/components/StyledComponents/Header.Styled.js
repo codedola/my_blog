@@ -180,6 +180,13 @@ export const WapperInputSearch = styled.div`
       .ant-popover-arrow {
         display: none;
       }
+
+      .ant-popover-inner {
+        .ant-popover-title {
+          padding-top: 10px;
+          padding-bottom: 10px;
+        }
+      }
     }
   }
 `;
@@ -187,17 +194,27 @@ export const TitleSearchResult = styled.div`
   display: flex;
   align-items: center;
   color: gray;
+  position: relative;
+
   svg {
+    position: absolute;
     width: 16px;
     height: 16px;
-    margin-right: 6px;
+    margin-right: 8px;
+    transition: all ease 0.2s;
   }
 
+  svg.Search_Loading_Icon {
+    width: 22px;
+    height: 22px;
+    /* margin-right: 2px; */
+  }
   .text_search {
     width: 100%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin-left: 26px;
   }
 `;
 
@@ -205,6 +222,7 @@ export const ListItemPostSearch = styled(List.Item)`
   border-bottom: unset !important;
   background-color: #ffffff;
   background-image: linear-gradient(160deg, #eff9ff3b 0%, #8ad9ff7a 100%);
+
   border-radius: 16px;
   padding: 6px 4px;
   margin-bottom: 12px;
@@ -223,13 +241,16 @@ export const ListItemPostSearch = styled(List.Item)`
     }
   }
 `;
-
+export const ListItemPostSearchResult = styled(ListItemPostSearch)`
+  background-image: unset;
+`;
 export const TopMorePostLastest = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  padding: 20px 0 12px;
+  padding: ${(props) => (props.paddingStyle ? props.paddingStyle : "20px 0 12px")};
+
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   margin-bottom: 6px;
 
