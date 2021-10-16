@@ -32,8 +32,8 @@ export default function HeaderSearch() {
     if (isLoading) return;
     const searchResult = valueSearch.trim();
     if (searchResult.length >= 2 && !isLoading) {
+      setIsLoading(true);
       const TimeoutID = setTimeout(() => {
-        setIsLoading(true);
         PostService.getList({ search: searchResult, per_page: 4 })
           .then(function (res) {
             setIsLoading(false);
